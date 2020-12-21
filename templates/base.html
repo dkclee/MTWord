@@ -51,7 +51,7 @@
             </form>
 
             <ul class="navbar-nav justify-content-end">
-                {% if "user_id" in session %}
+                {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
@@ -69,7 +69,7 @@
 
     {% block content %}{% endblock %}
 
-    <div class="container text-center">
+    <!-- <div class="container text-center">
         <h1>Bible Verse Retriever (ESV)</h1>
 
         <form class="form" id="verse-form" autocomplete="off">
@@ -82,7 +82,7 @@
 
         <h3 id="bible-verse"></h3>
 
-    </div>
+    </div> -->
 
     
     

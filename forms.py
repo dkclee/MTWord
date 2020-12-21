@@ -18,7 +18,8 @@ class SetForm(FlaskForm):
 class RegisterForm(FlaskForm):
     """Form for registering a user."""
 
-    name = StringField("Name", validators=[InputRequired()])
+    first_name = StringField("First Name", validators=[InputRequired()])
+    last_name = StringField("Last Name", validators=[InputRequired()])
     username = StringField("Username", validators=[InputRequired(),
                                                    Length(max=20)])
     password = PasswordField("Password", validators=[InputRequired()])

@@ -2,12 +2,14 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
+from flask_login import UserMixin
+
 db = SQLAlchemy()
 
 bcrypt = Bcrypt()
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """ Record of all the users of the app """
 
     __tablename__ = "users"
@@ -15,12 +17,15 @@ class User(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
-    name = db.Column(db.String(50),
-                     nullable=False)
+    first_name = db.Column(db.String(50),
+                           nullable=False)
+    last_name = db.Column(db.String(50),
+                          nullable=False)
     email = db.Column(db.Text,
                       nullable=False)
     username = db.Column(db.String(30),
-                         nullable=False)
+                         nullable=False,
+                         unique=True)
     password = db.Column(db.Text,
                          nullable=False)
 
