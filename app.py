@@ -81,9 +81,9 @@ def index():
 @app.route('/register', methods=["GET", "POST"])
 def handle_registration():
     """ Show the registration form or handles the registration
-        of a user, if the email is taken, take them back to the
+        of a user, if the email or username is taken, take them back to the
         registration form
-        
+        - Upon successful login, take to the homepage
     """
 
     form = RegisterForm()
