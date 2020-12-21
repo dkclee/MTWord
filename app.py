@@ -4,6 +4,8 @@ from flask import Flask, redirect, render_template, session, flash, request, abo
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 from flask_bootstrap import Bootstrap
 
@@ -30,6 +32,26 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+app.config['FLASK_ADMIN_SWATCH'] = 'journal'
+admin = Admin(app, name='MTWord', template_mode='bootstrap3')
+
+
+class MTWordModelView(ModelView):
+
+    def is_accessible(self):
+        return current_user.is_admin
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for('login', next=request.url))
+
+
+# Administrative views here
+admin.add_view(MTWordModelView(User, db.session))
+admin.add_view(MTWordModelView(Set, db.session))
+
+app.run()
+
 db.create_all()
 
 
@@ -42,7 +64,7 @@ def load_user(user_id):
 
 
 ####################################################################
-
+# Login/Registration Routes
 
 @app.route("/")
 def index():
@@ -55,7 +77,7 @@ def handle_registration():
     """ Show the registration form or handles the registration
         of a user, if the email is taken, take them back to the
         registration form
-        - If someone is already logged in, redirect to their page
+        
     """
 
     form = RegisterForm()
@@ -68,12 +90,16 @@ def handle_registration():
         return render_template('register.html', form=form)
 
     if form.validate_on_submit():
-        id = form.username.data
+        username = form.username.data
         pwd = form.password.data
         f_name = form.first_name.data
         l_name = form.last_name.data
 
-        user = User.register(id=id, pwd=pwd, email=email, f_name=f_name, l_name=l_name)
+        user = User.register(username=username,
+                             pwd=pwd,
+                             email=email,
+                             f_name=f_name,
+                             l_name=l_name)
         db.session.add(user)
         db.session.commit()
 
@@ -92,12 +118,10 @@ def handle_login():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
 
-
     form = LoginForm()
 
     if form.validate_on_submit():
         # Login and validate the user.
-
         name = form.username.data
         pwd = form.password.data
 
@@ -121,7 +145,7 @@ def handle_login():
         # See http://flask.pocoo.org/snippets/62/ for an example.
         # if not is_safe_url(next):
         #     return abort(400)
-        
+
     return render_template('login.html', form=form)
 
 
@@ -131,10 +155,13 @@ def logout():
 
     logout_user()
 
-    return redirect("/login")
+    return redirect(url_for("index"))
 
 
 @app.route("/helo")
 @login_required
 def hello():
     return "hello"
+
+
+####################################################################

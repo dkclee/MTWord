@@ -28,6 +28,9 @@ class User(UserMixin, db.Model):
                          unique=True)
     password = db.Column(db.Text,
                          nullable=False)
+    is_admin = db.Column(db.Boolean,
+                         default=False,
+                         nullable=False)
 
     sets = db.relationship('Set',
                            secondary='users_sets',

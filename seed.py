@@ -1,5 +1,5 @@
 from app import app
-from models import db, User 
+from models import db, User
 
 from flask_bcrypt import Bcrypt
 
@@ -16,7 +16,8 @@ user = User(username="test",
             password=hashed,
             email="test@test.com",
             first_name="David",
-            last_name="Lee")
+            last_name="Lee",
+            is_admin=True)
 
 db.session.add(user)
 db.session.commit()
