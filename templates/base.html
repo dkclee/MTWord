@@ -1,3 +1,5 @@
+{% from 'bootstrap/utils.html' import render_messages %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bible Memorization Website</title>
-    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    {% block styles %}
+        <link rel="stylesheet" href="../static/bootstrap.min.css">
+    {% endblock %}
 </head>
 
 <body>
@@ -20,8 +24,19 @@
 
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav mr-auto">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="false">Sets</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">New Set</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">My Sets</a>
+                    </div>
+                </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sets</a>
+                    <a class="nav-link" href="#">Explore</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Features</a>
@@ -32,18 +47,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">Sets</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">New Set</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Sets</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
-                </li>
+                
             </ul>
 
             <form class="form-inline my-2 my-lg-0 justify-content-center">
@@ -53,8 +57,16 @@
 
             <ul class="navbar-nav justify-content-end">
                 {% if current_user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="false">Account</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">My Sets</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
                 </li>
                 {% else %}
                 <li class="nav-item">
@@ -67,6 +79,8 @@
             </ul>
         </div>
     </nav>
+
+    {{ render_messages(dismissible=True, dismiss_animate=True) }}
 
     {% block content %}{% endblock %}
 
@@ -93,8 +107,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-    <script src="../static/bootstrap.min.js"></script>
-    <script src="../static/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../static/bootstrap.min.js"></script>
+    <script src="../static/bootstrap.bundle.min.js"></script> -->
+
+    {% block scripts %}
+        {{ bootstrap.load_js() }}
+    {% endblock %}
     <script src="../static/verse_retriever.js"></script>
 </body>
 

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, render_template, session, flash, request, abort, url_for
+from flask import Flask, redirect, render_template, session, flash, request, abort, url_for, Markup
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
@@ -46,7 +46,7 @@ class MTWordModelView(ModelView):
         return redirect(url_for('login', next=request.url))
 
 
-# Administrative views here
+# Administrative views
 admin.add_view(MTWordModelView(User, db.session))
 admin.add_view(MTWordModelView(Set, db.session))
 
@@ -105,6 +105,8 @@ def handle_registration():
 
         login_user(user)
 
+        flash('Sucessfully logged in!', "success")
+
         # on successful login, redirect to user detail page
         return redirect(f"/users/{user.id}")
     else:
@@ -154,6 +156,8 @@ def logout():
     """ Logs out the user from the webpage """
 
     logout_user()
+
+    flash('Sucessfully logged out!', "success")
 
     return redirect(url_for("index"))
 
