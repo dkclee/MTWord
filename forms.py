@@ -1,6 +1,6 @@
 from wtforms import SelectField, StringField, TextAreaField, PasswordField
 from wtforms.validators import InputRequired, Length, Email
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 
 
 class SetForm(FlaskForm):
@@ -26,6 +26,7 @@ class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[Email(),
                                              InputRequired(),
                                              Length(max=50)])
+    recaptcha = RecaptchaField()
 
 
 class LoginForm(FlaskForm):

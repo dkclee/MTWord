@@ -27,6 +27,17 @@
         {{ render_field(form.email,
         form_type="horizontal") }}
 
+        {% for error in form.recaptcha.errors %}
+          <div class='text-danger'>
+            {{ error }}
+          </div>
+        {% endfor %}
+
+        <div class="row justify-content-center my-3">
+          
+          {{ form.recaptcha }}
+        </div>
+
         <button class="btn btn-primary" type="submit">Create an account</button>
 
 

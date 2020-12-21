@@ -11,6 +11,9 @@ from flask_bootstrap import Bootstrap
 
 from models import db, connect_db, User, UserSet, Set, SetVerse, Verse
 from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm
+
+from secrets import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY
+
 import requests
 
 app = Flask(__name__)
@@ -22,6 +25,9 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+
+app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC_KEY
+app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
 
 debug = DebugToolbarExtension(app)
 
@@ -83,14 +89,20 @@ def handle_registration():
     form = RegisterForm()
 
     email = form.email.data
+    username = form.username.data
 
     # If there is a user with this email already
     if User.query.filter_by(email=email).first():
         form.email.errors = ["This email is already being used"]
+
+    # Check if there is a user with this username already
+    if User.query.filter_by(username=username).first():
+        form.username.errors = ["This username is already being used"]
+
+    if form.email.errors or form.username.errors:
         return render_template('register.html', form=form)
 
     if form.validate_on_submit():
-        username = form.username.data
         pwd = form.password.data
         f_name = form.first_name.data
         l_name = form.last_name.data
@@ -108,7 +120,7 @@ def handle_registration():
         flash('Sucessfully logged in!', "success")
 
         # on successful login, redirect to user detail page
-        return redirect(f"/users/{user.id}")
+        return redirect(url_for("index"))
     else:
         return render_template("register.html", form=form)
 
