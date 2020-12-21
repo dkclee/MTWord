@@ -1,0 +1,52 @@
+from wtforms import SelectField, StringField, TextAreaField, PasswordField
+from wtforms.validators import InputRequired, Length, Email
+from flask_wtf import FlaskForm
+
+
+class SetForm(FlaskForm):
+    """Form for adding playlists."""
+
+    name = StringField("Set Name",
+                       validators=[InputRequired(),
+                                   Length(max=50,
+                                          message="Name is too long")
+                                   ]
+                       )
+    description = TextAreaField("Description of the set")
+
+
+class RegisterForm(FlaskForm):
+    """Form for registering a user."""
+
+    name = StringField("Name", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired(),
+                                                   Length(max=20)])
+    password = PasswordField("Password", validators=[InputRequired()])
+    email = StringField("Email", validators=[Email(),
+                                             InputRequired(),
+                                             Length(max=50)])
+
+
+class LoginForm(FlaskForm):
+    """Form for registering a user."""
+
+    username = StringField("Username", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+
+
+class RequestResetPasswordForm(FlaskForm):
+    """Form for resetting the password for the user."""
+
+    email = StringField("Email", validators=[Email(),
+                                             InputRequired(),
+                                             Length(max=50)])
+
+
+class ResetPasswordForm(FlaskForm):
+    """Form for resetting the password for the user."""
+
+    password = StringField("New Password", validators=[InputRequired()])
+
+
+class DeleteForm(FlaskForm):
+    """ Form used for validation when deleting """
