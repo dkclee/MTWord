@@ -24,6 +24,8 @@ function addFields(evt) {
   
   $("#verseFields").append(newField);
 
+  window.scrollBy(0, 150);
+
 }
 
 /** Helper function to generate one of the 
