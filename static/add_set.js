@@ -84,7 +84,6 @@ async function retrieveVerse(reference) {
 $('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 500));
 
 
-
 /** Delete one of the verse fields */
 
 function deleteVerseField(evt) {
