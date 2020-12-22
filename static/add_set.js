@@ -80,7 +80,7 @@ async function retrieveVerse(reference) {
 
 
 
-$('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 750));
+$('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 500));
 
 
 
