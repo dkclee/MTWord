@@ -304,14 +304,16 @@ def edit_user_profile(user_id):
     """ Shows the user profile """
 
 
-
-
 ####################################################################
 # Set Routes
 
-@app.route("/sets/new")
+
+@app.route("/sets/new", methods=["GET", "POST"])
+@login_required
 def create_new_set():
     """ Creates a new set """
+
+    form = 
 
 
 @app.route("/sets/<int:set_id>")
@@ -327,3 +329,12 @@ def show_set_test(set_id):
 @app.route("/sets/<int:set_id>/cards")
 def show_set_cards(set_id):
     """ """
+
+####################################################################
+# API Verse Routes
+
+
+@app.route("/api/verse/<ref>", methods=["GET", "POST"])
+def lookup_verse(ref):
+    """ Look up the verse with the reference and return JSON """
+

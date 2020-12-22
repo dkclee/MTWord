@@ -57,5 +57,17 @@ class ResetPasswordForm(FlaskForm):
     confirm_password = PasswordField("Confirm Password", validators=[InputRequired()])
 
 
+class NewSetForm(FlaskForm):
+    """Form for creating a new set for the user."""
+
+    password = PasswordField("Password", validators=[InputRequired()])
+    confirm_password = PasswordField("Confirm Password", validators=[InputRequired()])
+
+
+
+
+
 class DeleteForm(FlaskForm):
     """ Form used for validation when deleting """
+
+
