@@ -1,15 +1,26 @@
 "use strict";
 
-let NEXT_VAL = 1;
-
 const VERSE_API = "/api/verse"
+
+/** Generator to make sure to get the 
+ *  snext value for the verse field id's */
+
+function* infinite() {
+  let index = 1;
+
+  while (true) {
+      yield index++;
+  }
+}
+
+const generator = infinite(); 
+
 
 /** Add another verse field unto the form */
 
 function addFields(evt) {
 
-  let newField = generateVerseField(NEXT_VAL);
-  NEXT_VAL++;
+  let newField = generateVerseField(generator.next().value);
   
   $("#verseFields").append(newField);
 
@@ -67,7 +78,7 @@ async function retrieveVerse(reference) {
 
 
 
-$('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 500));
+$('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 750));
 
 
 
