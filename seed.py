@@ -10,7 +10,7 @@ db.drop_all()
 db.create_all()
 
 
-hashed = bcrypt.generate_password_hash("password").decode('utf8')
+hashed = bcrypt.generate_password_hash("testing").decode('utf8')
 
 user = User(username="test",
             password=hashed,
