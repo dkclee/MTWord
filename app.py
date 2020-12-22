@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, render_template, session, flash, request, abort, url_for, Markup
+from flask import Flask, redirect, render_template, session, flash, request, abort, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
@@ -302,7 +302,6 @@ def show_user_profile(user_id):
 @login_required
 def edit_user_profile(user_id):
     """ Shows the user profile """
-
 
 
 
