@@ -114,12 +114,12 @@ def load_user(user_id):
 
 @app.errorhandler(404)
 def show_404_page(err):
-    return render_template('404.html'), 404
+    return render_template('errors/404.html'), 404
 
 
 @app.errorhandler(401)
 def show_401_page(err):
-    return render_template('401.html'), 401
+    return render_template('errors/401.html'), 401
 
 
 ####################################################################
@@ -180,7 +180,7 @@ def handle_registration():
         # on successful login, redirect to user detail page
         return redirect(url_for("index"))
     else:
-        return render_template("register.html", form=form)
+        return render_template("login_register/register.html", form=form)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -212,7 +212,7 @@ def handle_login():
 
         return redirect(url_for('index'))
 
-    return render_template('login.html', form=form)
+    return render_template('login_register/login.html', form=form)
 
 
 @app.route("/logout")
@@ -262,7 +262,7 @@ def request_reset_pw():
 
         return redirect("/")
 
-    return render_template("request_reset_pw.html", form=form)
+    return render_template("login_register/request_reset_pw.html", form=form)
 
 
 @app.route("/reset/pw/<token>", methods=["GET", "POST"])
@@ -287,7 +287,7 @@ def reset_pw(token):
 
         return redirect("/login")
 
-    return render_template("reset_pw.html", form=form)
+    return render_template("login_register/reset_pw.html", form=form)
 
 
 ####################################################################
