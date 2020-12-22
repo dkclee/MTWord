@@ -4,7 +4,7 @@ from flask import Flask, redirect, render_template, session, flash, request, abo
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 
 from flask_bootstrap import Bootstrap
@@ -38,18 +38,41 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-app.config['FLASK_ADMIN_SWATCH'] = 'journal'
-admin = Admin(app, name='MTWord', template_mode='bootstrap3')
-
-
 class MTWordModelView(ModelView):
-
     def is_accessible(self):
+        if current_user.is_anonymous:
+            return False
+        
         return current_user.is_admin
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
-        return redirect(url_for('login', next=request.url))
+        flash("Unauthorized.", "danger")
+        return redirect(url_for('index'))
+
+
+class MyAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        if current_user.is_anonymous:
+            return False
+        
+        return current_user.is_admin
+        # try:
+        #     is_admin = current_user.is_admin
+        #     return is_admin
+        # except AttributeError:
+        #     return self.inaccessible_callback("anon")
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        flash("Unauthorized.", "danger")
+        return redirect(url_for('index'))
+
+admin = Admin(app,
+              name='MTWord',
+              template_mode='bootstrap3',
+              index_view=MyAdminIndexView())
+app.config['FLASK_ADMIN_SWATCH'] = 'journal'
 
 
 # Administrative views
