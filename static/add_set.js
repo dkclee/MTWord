@@ -52,6 +52,8 @@ function generateVerseField(num) {
 $("#addFields").on("click", addFields)
 
 
+/** When the reference gets filled in, get the 
+ *  verse from API then update the textarea field  */
 
 async function refreshVerseFields(evt) {
   const $input = $(evt.target);
@@ -65,6 +67,7 @@ async function refreshVerseFields(evt) {
 
 }
 
+/** Make API request to get the verse and return the verse text */
 
 async function retrieveVerse(reference) {
   let resp = await axios.get(VERSE_API, {
@@ -78,20 +81,7 @@ async function retrieveVerse(reference) {
 }
 
 
-
-
 $('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 500));
-
-
-
-
-
-
-
-
-
-
-
 
 
 
