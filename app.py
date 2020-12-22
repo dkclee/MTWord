@@ -42,7 +42,7 @@ class MTWordModelView(ModelView):
     def is_accessible(self):
         if current_user.is_anonymous:
             return False
-        
+
         return current_user.is_admin
 
     def inaccessible_callback(self, name, **kwargs):
@@ -55,18 +55,14 @@ class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         if current_user.is_anonymous:
             return False
-        
+
         return current_user.is_admin
-        # try:
-        #     is_admin = current_user.is_admin
-        #     return is_admin
-        # except AttributeError:
-        #     return self.inaccessible_callback("anon")
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         flash("Unauthorized.", "danger")
         return redirect(url_for('index'))
+
 
 admin = Admin(app,
               name='MTWord',
@@ -87,18 +83,24 @@ db.create_all()
 ####################################################################
 # Setting up Login
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
 
 ####################################################################
-# Login/Registration Routes
+# Homepage
+
 
 @app.route("/")
 def index():
     """ """
     return render_template("base.html")
+
+
+####################################################################
+# Login/Registration Routes
 
 
 @app.route('/register', methods=["GET", "POST"])
