@@ -92,6 +92,20 @@ def load_user(user_id):
 
 
 ####################################################################
+# Error Pages
+
+
+@app.errorhandler(404)
+def show_404_page(err):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(401)
+def show_401_page(err):
+    return render_template('401.html'), 401
+
+
+####################################################################
 # Homepage
 
 

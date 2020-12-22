@@ -25,7 +25,11 @@ class RegisterForm(FlaskForm):
                                              Length(max=50)])
     username = StringField("Username", validators=[InputRequired(),
                                                    Length(max=20)])
-    password = PasswordField("Password", validators=[InputRequired()], 
+    password = PasswordField("Password",
+                             validators=[
+                                 InputRequired(),
+                                 Length(min=6),
+                                 ],
                              description="Password must be at least 6 characters long")
     recaptcha = RecaptchaField()
 
