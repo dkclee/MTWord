@@ -176,6 +176,7 @@ def handle_login():
     form = LoginForm()
 
     if form.validate_on_submit():
+
         # Login and validate the user.
         name = form.username.data
         pwd = form.password.data
@@ -188,18 +189,11 @@ def handle_login():
 
             return render_template('login.html', form=form)
 
-        # user should be an instance of your `User` class
         login_user(user)
 
         flash('Logged in successfully.')
 
         return redirect(url_for('index'))
-
-        # next = request.args.get('next')
-        # is_safe_url should check if the url is safe for redirects.
-        # See http://flask.pocoo.org/snippets/62/ for an example.
-        # if not is_safe_url(next):
-        #     return abort(400)
 
     return render_template('login.html', form=form)
 
@@ -213,12 +207,6 @@ def logout():
     flash('Sucessfully logged out!', "success")
 
     return redirect(url_for("index"))
-
-
-@app.route("/helo")
-@login_required
-def hello():
-    return "hello"
 
 
 ####################################################################
