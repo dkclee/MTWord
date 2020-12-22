@@ -1,26 +1,29 @@
+{% from 'bootstrap/form.html' import render_field, render_hidden_errors %}
+
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1 class="display-4">Request Reset Password</h1>
+<div class="container justify-content-center my-4 text-center">
 
-  <form method="POST">
+  <h3 class="display-4">Request reset password.</h3>
 
-    {{ form.hidden_tag() }}
+  <div class="row justify-content-center my-4">
 
-    {% for field in form
-  if field.widget.input_type != 'hidden' %}
-      <p>
-        {{ field.label }}
-        {{ field }}
+    <div class="col-8 text-center">
 
-        {% for error in field.errors %}
-          {{ error }}
-        {% endfor %}
-      </p>
-    {% endfor %}
+      <form method="POST" autocomplete="off">
 
-    <button type="submit">Send an email!</button>
+        {{ form.csrf_token() }}
+        {{ render_hidden_errors(form) }}
+        
+        {{ render_field(form.email,
+        form_type="horizontal") }}
 
-  </form>
-
+        <button class="btn btn-primary" type="submit">Send me an email!</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
+

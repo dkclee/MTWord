@@ -16,28 +16,16 @@
 
         {{ form.csrf_token() }}
         {{ render_hidden_errors(form) }}
+        
         {{ render_field(form.username,
         form_type="horizontal") }}
+
         {{ render_field(form.password,
         form_type="horizontal") }}
 
-        <!-- {{ form.hidden_tag() }}
-            
-            {% for field in form
-              if field.widget.input_type != 'hidden' %}
-              <p>
-                {{ field.label }}
-                {{ field }}
-                
-                {% for error in field.errors %}
-                {{ error }}
-                {% endfor %}
-              </p>
-              {% endfor %} -->
-
         <button class="btn btn-primary" type="submit">Log In</button>
 
-        <a class="btn btn-secondary" href="/reset/pw">Reset password!</a>
+        <a class="btn btn-secondary" href="/reset/pw">Forgot your password?</a>
 
       </form>
     </div>

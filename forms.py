@@ -53,7 +53,8 @@ class RequestResetPasswordForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     """Form for resetting the password for the user."""
 
-    password = StringField("New Password", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+    confirm_password = PasswordField("Confirm Password", validators=[InputRequired()])
 
 
 class DeleteForm(FlaskForm):

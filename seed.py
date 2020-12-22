@@ -14,7 +14,7 @@ hashed = bcrypt.generate_password_hash("testing").decode('utf8')
 
 user = User(username="test",
             password=hashed,
-            email="test@test.com",
+            email="davidlee980804@gmail.com",
             first_name="David",
             last_name="Lee",
             is_admin=True)

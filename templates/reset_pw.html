@@ -1,26 +1,34 @@
+{% from 'bootstrap/form.html' import render_field, render_hidden_errors %}
+
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1 class="display-4">Reset Password</h1>
+<div class="container justify-content-center my-4 text-center">
 
-  <form method="POST">
+  <h3 class="display-4 my-4">Reset password.</h3>
 
-    {{ form.hidden_tag() }}
+  <div class="row justify-content-center">
 
-    {% for field in form
-  if field.widget.input_type != 'hidden' %}
-      <p>
-        {{ field.label }}
-        {{ field }}
+    <div class="col-8 text-center">
 
-        {% for error in field.errors %}
-          {{ error }}
-        {% endfor %}
-      </p>
-    {% endfor %}
+      <form method="POST" autocomplete="off">
 
-    <button type="submit">Change my password!</button>
+        {{ form.csrf_token() }}
+        {{ render_hidden_errors(form) }}
 
-  </form>
+        {{ render_field(form.password,
+        form_type="horizontal") }}
+
+        {{ render_field(form.confirm_password,
+          form_type="horizontal") }}
+
+        <button class="btn btn-primary" type="submit">Change my password</button>
+
+      </form>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
+
+

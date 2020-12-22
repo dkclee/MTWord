@@ -12,7 +12,11 @@ from flask_bootstrap import Bootstrap
 from models import db, connect_db, User, UserSet, Set, SetVerse, Verse
 from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm
 
-from secrets import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY
+from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, EMAIL_PASSWORD, EMAIL_USER
+
+from secrets import token_urlsafe
+
+from flask_mail import Mail, Message
 
 import requests
 
@@ -38,6 +42,20 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "handle_login"
 login_manager.login_message = "Please log in!"
+
+
+mail_settings = {
+    "MAIL_SERVER": 'smtp.gmail.com',
+    "MAIL_PORT": 465,
+    "MAIL_USE_TLS": False,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": EMAIL_USER,
+    "MAIL_DEFAULT_SENDER": EMAIL_USER,
+    "MAIL_PASSWORD": EMAIL_PASSWORD
+}
+
+app.config.update(mail_settings)
+mail = Mail(app)
 
 
 class MTWordModelView(ModelView):
@@ -77,7 +95,6 @@ app.config['FLASK_ADMIN_SWATCH'] = 'journal'
 admin.add_view(MTWordModelView(User, db.session))
 admin.add_view(MTWordModelView(Set, db.session))
 
-app.run()
 
 db.create_all()
 
@@ -210,11 +227,80 @@ def logout():
 
 
 ####################################################################
+# Reset Password Route
+
+@app.route("/reset/pw", methods=["GET", "POST"])
+def request_reset_pw():
+
+    form = RequestResetPasswordForm()
+    email = form.email.data
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            form.email.errors = ["No user found with this email"]
+            return render_template("request_reset_pw.html", form=form)
+
+        token = token_urlsafe(16)
+
+        user.password_reset_token = token
+
+        db.session.commit()
+
+        msg = Message("Your password token",
+                      recipients=[email])
+        msg.html = f"""<p>
+                            <a href="http://localhost:5000/reset/pw/{token}">
+                                Click here to change your password
+                            </a>
+                       </p>"""
+
+        mail.send(msg)
+
+        flash("Email has been sent!")
+
+        return redirect("/")
+
+    return render_template("request_reset_pw.html", form=form)
+
+
+@app.route("/reset/pw/<token>", methods=["GET", "POST"])
+def reset_pw(token):
+
+    form = ResetPasswordForm()
+    user = User.query.filter_by(password_reset_token=token).first()
+
+    if not user:
+        abort(404)
+
+    if form.validate_on_submit():
+        password = form.password.data
+
+        user.update_password(password)
+
+        user.password_reset_token = None
+
+        db.session.commit()
+
+        flash("Your password has been updated!")
+
+        return redirect("/login")
+
+    return render_template("reset_pw.html", form=form)
+
+
+####################################################################
 # User Routes
 
-@app.route("users/<int:user_id>")
-@login_required
+@app.route("/users/<int:user_id>")
 def show_user_profile(user_id):
+    """ Shows the user profile """
+
+
+@app.route("/users/<int:user_id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_user_profile(user_id):
     """ Shows the user profile """
 
 
