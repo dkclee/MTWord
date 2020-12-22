@@ -222,3 +222,35 @@ def hello():
 
 
 ####################################################################
+# User Routes
+
+@app.route("users/<int:user_id>")
+@login_required
+def show_user_profile(user_id):
+    """ Shows the user profile """
+
+
+
+
+
+####################################################################
+# Set Routes
+
+@app.route("/sets/new")
+def create_new_set():
+    """ Creates a new set """
+
+
+@app.route("/sets/<int:set_id>")
+def show_set(set_id):
+    """ Show the set """
+
+
+@app.route("/sets/<int:set_id>/test")
+def show_set_test(set_id):
+    """  """
+
+
+@app.route("/sets/<int:set_id>/cards")
+def show_set_cards(set_id):
+    """ """

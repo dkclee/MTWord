@@ -1,4 +1,5 @@
 from wtforms import SelectField, StringField, TextAreaField, PasswordField
+from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Length, Email
 from flask_wtf import FlaskForm, RecaptchaField
 
@@ -20,9 +21,9 @@ class RegisterForm(FlaskForm):
 
     first_name = StringField("First Name", validators=[InputRequired()])
     last_name = StringField("Last Name", validators=[InputRequired()])
-    email = StringField("Email", validators=[Email(),
-                                             InputRequired(),
-                                             Length(max=50)])
+    email = EmailField("Email", validators=[Email(),
+                                            InputRequired(),
+                                            Length(max=50)])
     username = StringField("Username", validators=[InputRequired(),
                                                    Length(max=20)])
     password = PasswordField("Password",
@@ -44,9 +45,9 @@ class LoginForm(FlaskForm):
 class RequestResetPasswordForm(FlaskForm):
     """Form for resetting the password for the user."""
 
-    email = StringField("Email", validators=[Email(),
-                                             InputRequired(),
-                                             Length(max=50)])
+    email = EmailField("Email", validators=[Email(),
+                                            InputRequired(),
+                                            Length(max=50)])
 
 
 class ResetPasswordForm(FlaskForm):
