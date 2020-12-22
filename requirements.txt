@@ -2,6 +2,7 @@ appnope==0.1.2
 backcall==0.2.0
 bcrypt==3.2.0
 blinker==1.4
+Bootstrap-Flask==1.5.1
 certifi==2020.12.5
 cffi==1.14.4
 chardet==3.0.4
@@ -11,9 +12,11 @@ dnspython==2.0.0
 dominate==2.6.0
 email-validator==1.1.2
 Flask==1.1.2
+Flask-Admin==1.5.7
 Flask-Bcrypt==0.7.1
-Flask-Bootstrap4==4.0.2
 Flask-DebugToolbar==0.11.0
+Flask-Login==0.5.0
+Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
 idna==2.10
@@ -27,6 +30,7 @@ parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.8
+psycopg2==2.8.6
 psycopg2-binary==2.8.6
 ptyprocess==0.6.0
 pycparser==2.20
