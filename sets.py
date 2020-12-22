@@ -24,7 +24,9 @@ def split_verses(ref):
     """
 
 
-def get_esv_text(passage, get_verse_num=False):
+def get_esv_text(passage, get_verse_num=True):
+    """ Get the esv text from the API """
+    
     params = {
         'q': passage,
         'include-headings': False,

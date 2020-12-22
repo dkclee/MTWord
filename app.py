@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, render_template, session, flash, request, abort, url_for
+from flask import Flask, redirect, render_template, session, flash, request, abort, url_for, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
@@ -13,6 +13,8 @@ from models import db, connect_db, User, Set, SetVerse, Verse
 from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm, SetForm
 
 from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, EMAIL_PASSWORD, EMAIL_USER
+
+from sets import get_esv_text
 
 from secrets import token_urlsafe
 
@@ -271,6 +273,8 @@ def reset_pw(token):
     form = ResetPasswordForm()
     user = User.query.filter_by(password_reset_token=token).first()
 
+    
+
     if not user:
         abort(404)
 
@@ -352,7 +356,13 @@ def show_set_cards(set_id):
 # API Verse Routes
 
 
-@app.route("/api/verse/<ref>", methods=["GET", "POST"])
-def lookup_verse(ref):
+@app.route("/api/verse")
+def lookup_verse():
     """ Look up the verse with the reference and return JSON """
 
+    reference = request.args["reference"]
+    get_verse_num = request.args["get_verse_num"]
+
+    verse = get_esv_text(reference, get_verse_num)
+
+    return jsonify(verse=verse)

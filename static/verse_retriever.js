@@ -1,41 +1,41 @@
-"use strict";
+// "use strict";
 
-async function retrieveVerse(verse) {
+// async function retrieveVerse(verse) {
 
-  let response = await axios.get(API_URL, {
-    params: {
-      'q': verse,
-      'include-headings': false,
-      'include-footnotes': false,
-      'include-verse-numbers': true,
-      'include-short-copyright': false,
-      'include-passage-references': false
-    },
-    headers: {
-      'Authorization': API_KEY
-    }
-  });
+//   let response = await axios.get(API_URL, {
+//     params: {
+//       'q': verse,
+//       'include-headings': false,
+//       'include-footnotes': false,
+//       'include-verse-numbers': true,
+//       'include-short-copyright': false,
+//       'include-passage-references': false
+//     },
+//     headers: {
+//       'Authorization': API_KEY
+//     }
+//   });
 
-  return response;
-}
+//   return response;
+// }
 
 
-async function getVerseAndChangeSite(evt) {
+// async function getVerseAndChangeSite(evt) {
   
-  evt.preventDefault();
+//   evt.preventDefault();
 
-  let verse = $("#verse").val();
-  console.log(verse);
-  let response = await retrieveVerse(verse);
+//   let verse = $("#verse").val();
+//   console.log(verse);
+//   let response = await retrieveVerse(verse);
 
-  let verseText = response.data.passages[0];
+//   let verseText = response.data.passages[0];
 
-  console.log(verseText);
+//   console.log(verseText);
 
-  $("#bible-verse").text(verseText);
+//   $("#bible-verse").text(verseText);
 
-  $(evt).trigger("reset");
-}
+//   $(evt).trigger("reset");
+// }
 
 
-$("#verse-form").on("submit", getVerseAndChangeSite);
+// $("#verse-form").on("submit", getVerseAndChangeSite);

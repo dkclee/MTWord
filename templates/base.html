@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bible Memorization Website</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
     {% block styles %}
-        <link rel="stylesheet" href="/static/bootstrap.min.css">
     {% endblock %}
 </head>
 
@@ -109,9 +109,9 @@
         crossorigin="anonymous"></script>
     <!-- <script src="../static/bootstrap.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script> -->
+    {{ bootstrap.load_js() }}
 
     {% block scripts %}
-        {{ bootstrap.load_js() }}
     {% endblock %}
     <script src="/static/verse_retriever.js"></script>
 </body>
