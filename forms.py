@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm, RecaptchaField
 
 
 class SetForm(FlaskForm):
-    """Form for adding playlists."""
+    """Form for adding Sets."""
 
     name = StringField("Set Name",
                        validators=[InputRequired(),
@@ -56,12 +56,6 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[InputRequired()])
 
-
-class NewSetForm(FlaskForm):
-    """Form for creating a new set for the user."""
-
-    password = PasswordField("Password", validators=[InputRequired()])
-    confirm_password = PasswordField("Confirm Password", validators=[InputRequired()])
 
 
 

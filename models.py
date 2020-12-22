@@ -35,7 +35,6 @@ class User(UserMixin, db.Model):
     password_reset_token = db.Column(db.Text)
 
     sets = db.relationship('Set',
-                           secondary='users_sets',
                            backref='users')
 
     def update_password(self, pwd):
@@ -72,18 +71,18 @@ class User(UserMixin, db.Model):
             return False
 
 
-class UserSet(db.Model):
-    """ Relating all the sets to a user """
+# class UserSet(db.Model):
+#     """ Relating all the sets to a user """
 
-    __tablename__ = "users_sets"
+#     __tablename__ = "users_sets"
 
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
-    user_id = db.Column(db.Integer,
-                        db.ForeignKey('users.id'))
-    set_id = db.Column(db.Integer,
-                       db.ForeignKey('sets.id'))
+#     id = db.Column(db.Integer,
+#                    primary_key=True,
+#                    autoincrement=True)
+#     user_id = db.Column(db.Integer,
+#                         db.ForeignKey('users.id'))
+#     set_id = db.Column(db.Integer,
+#                        db.ForeignKey('sets.id'))
 
 
 class Set(db.Model):
@@ -97,6 +96,8 @@ class Set(db.Model):
     name = db.Column(db.String(50),
                      nullable=False)
     description = db.Column(db.Text)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=db.func.now())
 

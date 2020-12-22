@@ -9,8 +9,8 @@ from flask_admin.contrib.sqla import ModelView
 
 from flask_bootstrap import Bootstrap
 
-from models import db, connect_db, User, UserSet, Set, SetVerse, Verse
-from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm
+from models import db, connect_db, User, Set, SetVerse, Verse
+from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm, SetForm
 
 from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, EMAIL_PASSWORD, EMAIL_USER
 
@@ -208,7 +208,7 @@ def handle_login():
 
         login_user(user)
 
-        flash('Logged in successfully.')
+        flash('Logged in successfully.', "success")
 
         return redirect(url_for('index'))
 
@@ -283,9 +283,9 @@ def reset_pw(token):
 
         db.session.commit()
 
-        flash("Your password has been updated!")
+        flash("Your password has been updated!", "success")
 
-        return redirect("/login")
+        return redirect(url_for("handle_login"))
 
     return render_template("login_register/reset_pw.html", form=form)
 
@@ -313,7 +313,25 @@ def edit_user_profile(user_id):
 def create_new_set():
     """ Creates a new set """
 
-    form = 
+    form = SetForm()
+
+    if form.validate_on_submit():
+        title = form.title.data
+
+        description = form.description.data
+
+        new_set = Set(title=title,
+                      description=description,
+                      user_id=current_user.id)
+
+        db.session.add(new_set)
+        db.session.commit()
+
+        flash("Created new set!", "success")
+
+        return redirect(url_for(show_set), set_id=new_set.id)
+
+    return render_template("sets/add_set.html", form=form)
 
 
 @app.route("/sets/<int:set_id>")

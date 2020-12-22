@@ -8,11 +8,12 @@ def get_all_verses(references):
 
     for refs in references:
         if "-" in refs:
-            refs = splitVerses(refs)
+            refs = split_verses(refs)
         else:
             refs = [refs]
 
         for ref in refs:
+            verse = get_esv_text(ref)
 
     return False
 
@@ -30,7 +31,8 @@ def get_esv_text(passage, get_verse_num=False):
         'include-footnotes': False,
         'include-verse-numbers': get_verse_num,
         'include-short-copyright': False,
-        'include-passage-references': False
+        'include-passage-references': False,
+        'indent-poetry': False,
     }
 
     headers = {
