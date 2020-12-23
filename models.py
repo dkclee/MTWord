@@ -37,6 +37,9 @@ class User(UserMixin, db.Model):
     sets = db.relationship('Set',
                            backref='users')
 
+    def __repr__(self):
+        return f"<User {self.first_name} {self.last_name}>"
+
     def update_password(self, pwd):
         """ Update the user's password """
         self.password = bcrypt.generate_password_hash(pwd).decode('utf8')
@@ -105,6 +108,9 @@ class Set(db.Model):
                              secondary='sets_verses',
                              backref='sets')
 
+    def __repr__(self):
+        return f"<Set {self.name}>"
+
 
 class SetVerse(db.Model):
     """Mapping of a verse to a set."""
@@ -132,6 +138,9 @@ class Verse(db.Model):
                           nullable=False)
     verse = db.Column(db.Text,
                       nullable=False)
+
+    def __repr__(self):
+        return f"<Verse {self.reference} {self.verse[:10]}>"
 
 
 # DO NOT MODIFY THIS FUNCTION
