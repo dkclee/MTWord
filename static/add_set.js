@@ -35,6 +35,8 @@ function generateVerseField(num) {
   return $(`<div class="form-group row verseField align-items-center">
               <div class="col">
                   <input class="form-control input-ref" id="ref-${num}" name="refs" required="" type="text" value="">
+                  <div id="ref-correct-${num}">                      
+                  </div>
               </div>
               <div class="col">
                   <textarea cols="35" rows="4" id="verse-${num}" disabled></textarea>
@@ -53,7 +55,9 @@ $("#addFields").on("click", addFields)
 
 
 /** When the reference gets filled in, get the 
- *  verse from API then update the textarea field  */
+ *  verse from API then update the textarea field 
+ *  - Also check if the reference can be formed in a 
+ *    nicer format (display option to change) */
 
 async function refreshVerseFields(evt) {
   const $input = $(evt.target);
@@ -61,9 +65,17 @@ async function refreshVerseFields(evt) {
 
   const reference = $input.val();
 
-  const verse = await retrieveVerse(reference);
+  const info = await retrieveVerse(reference);
 
-  $(`#verse-${targetId}`).val(verse);
+  $(`#verse-${targetId}`).val(info.passages);
+
+  if ($input.val() !== info.reference) {
+    $(`#ref-correct-${targetId}`).html(
+      `Did you mean: <a class="correct-ref">${info.reference}</a>`
+    );
+  } else {
+    $(`#ref-correct-${targetId}`).empty()
+  }
 
 }
 
@@ -77,11 +89,29 @@ async function retrieveVerse(reference) {
     }
   });
 
-  return resp.data.verse;
+  return resp.data.info;
 }
 
 
 $('#verseFields').on("input", ".input-ref", _.debounce(refreshVerseFields, 500));
+
+
+/** Function to update the references to a friendlier
+ *  format when the link is pressed
+ */
+
+function refreshRefInputs(evt) {
+  let $newRefLink = $(evt.target);
+  let newRef = $newRefLink.text();
+
+  let $refSuggestionDiv = $newRefLink.parent();
+  const targetId = $refSuggestionDiv.attr('id').split("-")[2];
+  
+  $(`#ref-${targetId}`).val(newRef);
+  $refSuggestionDiv.empty();
+}
+
+$('#verseFields').on("click", ".correct-ref", refreshRefInputs);
 
 
 /** Delete one of the verse fields */
@@ -93,3 +123,4 @@ function deleteVerseField(evt) {
 }
 
 $("#verseFields").on("click", ".delete-field", deleteVerseField)
+

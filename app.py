@@ -273,7 +273,7 @@ def reset_pw(token):
     form = ResetPasswordForm()
     user = User.query.filter_by(password_reset_token=token).first()
 
-    
+
 
     if not user:
         abort(404)
@@ -363,6 +363,6 @@ def lookup_verse():
     reference = request.args["reference"]
     get_verse_num = request.args["get_verse_num"]
 
-    verse = get_esv_text(reference, get_verse_num)
+    info = get_esv_text(reference, get_verse_num)
 
-    return jsonify(verse=verse)
+    return jsonify(info=info)

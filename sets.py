@@ -26,7 +26,7 @@ def split_verses(ref):
 
 def get_esv_text(passage, get_verse_num=True):
     """ Get the esv text from the API """
-    
+
     params = {
         'q': passage,
         'include-headings': False,
@@ -44,7 +44,12 @@ def get_esv_text(passage, get_verse_num=True):
     response = requests.get(API_URL, params=params, headers=headers)
 
     passages = response.json()['passages']
+    reference = response.json()["query"]
 
     # return response.json()
 
-    return passages[0].strip() if passages else 'Error: Passage not found'
+    return {
+        'passages': passages[0].strip() if passages else 'Error: Passage not found',
+        'reference': reference
+    }
+
