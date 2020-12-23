@@ -320,6 +320,11 @@ def create_new_set():
     form = SetForm()
 
     if form.validate_on_submit():
+
+        if not request.form.get('refs'):
+            form.name.errors = ["Please make sure to include at least 1 verse reference"]
+            return render_template("sets/add_set.html", form=form)
+
         title = form.title.data
 
         description = form.description.data

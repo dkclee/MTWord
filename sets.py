@@ -52,4 +52,3 @@ def get_esv_text(passage, get_verse_num=True):
         'passages': passages[0].strip() if passages else 'Error: Passage not found',
         'reference': reference
     }
-
