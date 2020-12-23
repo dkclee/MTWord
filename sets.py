@@ -47,7 +47,7 @@ def get_all_verses(references):
             continue
 
         verse = Verse.query.filter_by(reference=reference).first()
-, set_id=new_set.id
+
         if not verse:
             verse = Verse(
                 reference=reference,
