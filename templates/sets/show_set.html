@@ -1,0 +1,145 @@
+{% from 'bootstrap/form.html' import render_field, render_hidden_errors %}
+
+
+{% block styles %}
+<style>
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        height: 100px;
+        width: 100px;
+        background-size: 100%, 100%;
+        border-radius: 50%;
+        background-image: none;
+    }
+
+    .carousel-control-next-icon:after {
+        content: '>';
+        font-size: 4rem;
+        color: rgb(93, 188, 210);
+    }
+
+    .carousel-control-prev-icon:after {
+        content: '<';
+        font-size: 4rem;
+        color: rgb(93, 188, 210);
+    }
+
+    .card-body.flipped {
+        transform: rotateX(180deg);
+    }
+
+    .front,
+    .back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backface-visibility: hidden;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .back {
+        transform: rotateX(180deg);
+    }
+</style>
+
+
+{% endblock %}
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-4">
+    <h1 class="display-4 mt-5"><b>Set Name: </b>{{ set.name }}</h1>
+    <p class="lead"><i>Description: </i>{{ set.description }}</p>
+
+    <div class="row my-5 align-items-center">
+        <div class="col-lg-3 my-2">
+            <ul class="list-group text-center">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-card-text" viewBox="0 0 16 16">
+                        <path
+                            d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                        <path
+                            d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                    Cards
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg>
+                    Practice
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-square" viewBox="0 0 16 16">
+                        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                        <path d="M8.354 10.354l7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                    </svg>
+                    Test
+                </a>
+            </ul>
+        </div>
+
+        <div class="col-lg my-2">
+            {% include 'sets/_cards.html' %}
+        </div>
+    </div>
+
+    <div class="text-center row my-4">
+        <div class=" col-lg my-2">
+            Reference
+        </div>
+        <div class=" col-lg my-2">
+            Verse
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+
+        <div class="col-8 text-center">
+
+            <form method="POST" autocomplete="off" id="addSetForm">
+
+                <div id="verseFields">
+
+
+
+                    <div class="form-group row verseField align-items-center">
+                        <div class="col-lg my-2">
+                            <input class="form-control input-ref" id="ref-0" name="refs" required="" type="text"
+                                value="" placeholder="Verse Reference">
+                            <div id="ref-correct-0">
+                            </div>
+                        </div>
+                        <div class="col-lg my-2">
+                            <textarea class="form-control" id="verse-0" disabled>Verse</textarea>
+                        </div>
+                        <div class="delete-field col-lg-1 my-2">
+                            <button class="btn btn-block btn-danger" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline-warning" id="addFields" type="button">Add Fields</button>
+                <button class="btn btn-info" type="submit">Create my set</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="/static/show_sets.js"></script>
+{% endblock %}

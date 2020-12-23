@@ -353,14 +353,26 @@ def create_new_set():
     return render_template("sets/add_set.html", form=form)
 
 
-@app.route("/sets/<int:set_id>")
-def show_set(set_id):
-    """ Show the set """
-
-
 @app.route("/sets/<int:set_id>/edit")
+@login_required
 def edit_set(set_id):
     """ Edit the set """
+
+
+@app.route("/sets/<int:set_id>")
+def show_set(set_id):
+    """ Display the set with:
+        - Options to edit the set
+        - Various studying means
+    """
+
+    current_set = Set.query.get(set_id)
+
+    # If the set doesnt exist, 404
+    if not current_set:
+        abort(404)
+
+    return render_template("sets/show_set.html", set=current_set)
 
 
 @app.route("/sets/<int:set_id>/test")
