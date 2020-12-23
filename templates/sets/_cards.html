@@ -1,4 +1,4 @@
-<div id="card-{{ set.id }}" class="carousel slide" data-ride="carousel" data-interval="false" data-keyboard="true">
+<div id="set-carousel" class="carousel slide" data-ride="carousel" data-interval="false" data-keyboard="true">
     <div class="carousel-inner">
         {% for verse in set.verses %}
             <div class="carousel-item">
@@ -15,12 +15,12 @@
             </div>
         {% endfor %}
 
-        <a class="carousel-control-prev" href="#card-{{ set.id }}" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#set-carousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
 
-        <a class="carousel-control-next" href="#card-{{ set.id }}" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#set-carousel" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
