@@ -25,15 +25,12 @@ db.session.commit()
 
 verse1 = Verse(
     reference="John 3:16",
-    verse="""“For God so loved the world, that he gave his 
-            only Son, that whoever believes in him should not
-            perish but have eternal life."""
+    verse='“For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.'
 )
 
 verse2 = Verse(
     reference="Romans 5:8",
-    verse="""but God shows his love for us in that while 
-            we were still sinners, Christ died for us."""
+    verse="but God shows his love for us in that while we were still sinners, Christ died for us."
 )
 
 db.session.add(verse1, verse2)

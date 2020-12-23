@@ -96,6 +96,7 @@ app.config['FLASK_ADMIN_SWATCH'] = 'journal'
 # Administrative views
 admin.add_view(MTWordModelView(User, db.session))
 admin.add_view(MTWordModelView(Set, db.session))
+admin.add_view(MTWordModelView(Verse, db.session))
 
 
 db.create_all()
