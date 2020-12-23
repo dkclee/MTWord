@@ -30,8 +30,35 @@ import requests
 
 #     ref_arr 
 
+def get_all_verses(references):
+    """ With a list of references, return a list of valid verse instances
+        - If verse instances does not exist, create a new one """
 
+    verses = []
 
+    for ref in references:
+
+        info = get_esv_text(ref, False)
+
+        passages = info['passages']
+        reference = info['reference']
+
+        if passages == 'Error: Passage not found':
+            continue
+
+        verse = Verse.query.filter_by(reference=reference).first()
+, set_id=new_set.id
+        if not verse:
+            verse = Verse(
+                reference=reference,
+                verse=passages
+            )
+            db.session.add(verse)
+            db.session.commit()
+
+        verses.append(verse)
+
+    return verses
 
 
 def get_esv_text(passage, get_verse_num=True):

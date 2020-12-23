@@ -14,7 +14,7 @@ from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, Reques
 
 from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, EMAIL_PASSWORD, EMAIL_USER
 
-from sets import get_esv_text
+from sets import get_esv_text, get_all_verses
 
 from secrets import token_urlsafe
 
@@ -338,9 +338,16 @@ def create_new_set():
         db.session.add(new_set)
         db.session.commit()
 
+        # Get all the verse instances with the references
+        verses = get_all_verses(request.form.getlist('refs'))
+
+        new_set.verses += verses
+
+        db.session.commit()
+
         flash("Created new set!", "success")
 
-        return redirect(url_for(show_set), set_id=new_set.id)
+        return redirect(url_for("show_set", set_id=new_set.id))
 
     return render_template("sets/add_set.html", form=form)
 
