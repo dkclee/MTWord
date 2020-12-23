@@ -15,60 +15,64 @@
 
 <div class="container justify-content-center my-4 text-center">
 
-  <h1 class="display-4 my-5">Create a new set</h1>
+    <h1 class="display-4 my-5">Create a new set</h1>
 
-  <div class="row justify-content-center">
+    <div class="row justify-content-center">
 
-    <div class="col-8 text-center">
+        <div class="col-8 text-center">
 
-      <form method="POST" autocomplete="off" id="addSetForm">
+            <form method="POST" autocomplete="off" id="addSetForm">
 
-        {{ form.csrf_token() }}
-        {{ render_hidden_errors(form) }}
-        
-        {{ render_field(form.name,
-        form_type="horizontal") }}
+                {{ form.csrf_token() }}
+                {{ render_hidden_errors(form) }}
 
-        {{ render_field(form.description,
-        form_type="horizontal") }}
-        <div id="verseFields">
+                {{ render_field(form.name,
+                form_type="horizontal") }}
 
-            <div class="form-group row">
-                <div class=" col">
-                    Reference
-                </div>
-                <div class=" col">
-                    Verse
-                </div>
-                <div class=" col-lg-1">
-                    Delete
-                </div>
-            </div>
+                {{ render_field(form.description,
+                form_type="horizontal") }}
+                <div id="verseFields">
 
-            <div class="form-group row verseField align-items-center">
-                <div class="col">
-                    <input class="form-control input-ref" id="ref-0" name="refs" required="" type="text" value="">
-                    <div id="ref-correct-0">
+                    <div class="form-group row">
+                        <div class=" col-lg my-2">
+                            Reference
+                            <p class="font-weight-light">Please use this format: <i>Book Chapter#:Verse#</i></p>
+                        </div>
+                        <div class=" col-lg my-2">
+                            Verse
+                        </div>
+                        <div class=" col-lg-1 my-2">
+                            Delete
+                        </div>
+                    </div>
+
+                    <div class="form-group row verseField align-items-center">
+                        <div class="col-lg my-2">
+                            <input class="form-control input-ref" id="ref-0" name="refs" required="" type="text"
+                                value="" placeholder="Verse Reference">
+                            <div id="ref-correct-0">
+                            </div>
+                        </div>
+                        <div class="col-lg my-2">
+                            <textarea class="form-control" id="verse-0" disabled>Verse</textarea>
+                        </div>
+                        <div class="delete-field col-lg-1 my-2">
+                            <button class="btn btn-block btn-danger" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <textarea cols="35" rows="4" id="verse-0" disabled></textarea>
-                </div>
-                <div class="delete-field col-lg-1">
-                    <button class="btn btn-sm btn-danger" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-outline-warning" id="addFields" type="button">Add Fields</button>
-        <button class="btn btn-info" type="submit">Create my set</button>
+                <button class="btn btn-outline-warning" id="addFields" type="button">Add Fields</button>
+                <button class="btn btn-info" type="submit">Create my set</button>
 
-      </form>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
 
@@ -88,8 +92,10 @@
     </div>
     <div class="delete-field col-lg-1">
         <button class="btn btn-sm btn-danger">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
             </svg>
         </button>
     </div>
