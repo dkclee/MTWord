@@ -315,7 +315,9 @@ def edit_user_profile(user_id):
 @app.route("/sets/new", methods=["GET", "POST"])
 @login_required
 def create_new_set():
-    """ Creates a new set """
+    """ Creates a new set
+        - Validates that there is at least 1 verse reference
+    """
 
     form = SetForm()
 
@@ -325,11 +327,11 @@ def create_new_set():
             form.name.errors = ["Please make sure to include at least 1 verse reference"]
             return render_template("sets/add_set.html", form=form)
 
-        title = form.title.data
+        name = form.name.data
 
         description = form.description.data
 
-        new_set = Set(title=title,
+        new_set = Set(name=name,
                       description=description,
                       user_id=current_user.id)
 
@@ -346,6 +348,11 @@ def create_new_set():
 @app.route("/sets/<int:set_id>")
 def show_set(set_id):
     """ Show the set """
+
+
+@app.route("/sets/<int:set_id>/edit")
+def edit_set(set_id):
+    """ Edit the set """
 
 
 @app.route("/sets/<int:set_id>/test")

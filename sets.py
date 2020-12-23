@@ -1,27 +1,37 @@
 from secret import API_KEY, API_URL
 
+from models import db, Verse
+
 import requests
 
+# TODO: If you get a list of verses, convert them to individual instances
 
-def get_all_verses(references):
-    """ With a list of verse references, get all the verses """
+# def get_all_verses(references):
+#     """ With a list of verse references, get all the verses """
 
-    for refs in references:
-        if "-" in refs:
-            refs = split_verses(refs)
-        else:
-            refs = [refs]
+#     for refs in references:
+#         if "-" in refs:
+#             refs = split_verses(refs)
+#         else:
+#             refs = [refs]
 
-        for ref in refs:
-            verse = get_esv_text(ref)
+#         for ref in refs:
+#             verse = get_esv_text(ref)
 
-    return False
+#     return False
 
 
-def split_verses(ref):
-    """ If there are references to multiple verses, split them
-        "Romans 8:1-3" -> ["Romans 8:1", "Romans 8:2", "Romans 8:3"]
-    """
+# def split_verses(ref):
+#     """ If there are references to multiple verses, split them
+#         "Romans 8:1-3" -> ["Romans 8:1", "Romans 8:2", "Romans 8:3"]
+#     """
+
+#     split_refs = ref.split(":")
+
+#     ref_arr 
+
+
+
 
 
 def get_esv_text(passage, get_verse_num=True):
