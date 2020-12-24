@@ -38,7 +38,9 @@ def get_all_verses(references):
 
     for ref in references:
 
-        info = get_esv_text(ref, False)
+        get_verse_num = "-" in ref
+
+        info = get_esv_text(ref, get_verse_num)
 
         passages = info['passages']
         reference = info['reference']
