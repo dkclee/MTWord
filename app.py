@@ -4,8 +4,10 @@ from flask import Flask, redirect, render_template, session, flash, request, abo
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
-from flask_admin import Admin, AdminIndexView
+from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+
+from admin import MyAdminIndexView, MTWordModelView
 
 from flask_bootstrap import Bootstrap
 
@@ -58,33 +60,6 @@ mail_settings = {
 
 app.config.update(mail_settings)
 mail = Mail(app)
-
-
-class MTWordModelView(ModelView):
-    def is_accessible(self):
-        if current_user.is_anonymous:
-            return False
-
-        return current_user.is_admin
-
-    def inaccessible_callback(self, name, **kwargs):
-        # redirect to login page if user doesn't have access
-        flash("Unauthorized.", "danger")
-        return redirect(url_for('index'))
-
-
-class MyAdminIndexView(AdminIndexView):
-    def is_accessible(self):
-        if current_user.is_anonymous:
-            return False
-
-        return current_user.is_admin
-
-    def inaccessible_callback(self, name, **kwargs):
-        # redirect to login page if user doesn't have access
-        flash("Unauthorized.", "danger")
-        return redirect(url_for('index'))
-
 
 admin = Admin(app,
               name='MTWord',
