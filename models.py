@@ -35,7 +35,7 @@ class User(UserMixin, db.Model):
     password_reset_token = db.Column(db.Text)
 
     sets = db.relationship('Set',
-                           backref='users')
+                           backref='user')
 
     def __repr__(self):
         return f"<User {self.first_name} {self.last_name}>"
@@ -109,7 +109,7 @@ class Set(db.Model):
                              backref='sets')
 
     def __repr__(self):
-        return f"<Set {self.name}>"
+        return f"<Set {self.name} by {self.user.first_name} {self.user.last_name}>"
 
 
 class SetVerse(db.Model):
