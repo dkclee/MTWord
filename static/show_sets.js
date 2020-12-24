@@ -13,14 +13,10 @@ function makeFirstCardActive(evt) {
 $(document).ready(makeFirstCardActive);
 
 
-
-
-
+/** Flips the card when the card is clicked */
 
 function handleFlipCard(evt) {
-  let $cardBody = $(evt.target).closest(".card-body");
-
-  console.log($cardBody);
+  let $cardBody = $(".active").children().children().first();
 
   if ($cardBody.hasClass("flipped")) {
     $cardBody.removeClass("flipped");
@@ -29,5 +25,19 @@ function handleFlipCard(evt) {
   }
 }
 
-
 $carousel.on("click", ".card-body", handleFlipCard);
+
+
+function handleKeyPress(evt) {
+  console.log(evt);
+  if(evt.code === "ArrowDown" || evt.code === "ArrowUp") {
+    handleFlipCard()
+  } else if(evt.code === "ArrowRight") {
+    $carousel.carousel('next')
+  } else if(evt.code === "ArrowLeft") {
+    $carousel.carousel('prev')
+  }
+}
+
+
+$(document).on("keydown", handleKeyPress)
