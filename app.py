@@ -249,8 +249,6 @@ def reset_pw(token):
     form = ResetPasswordForm()
     user = User.query.filter_by(password_reset_token=token).first()
 
-
-
     if not user:
         abort(404)
 
@@ -347,7 +345,13 @@ def show_set(set_id):
     if not current_set:
         abort(404)
 
-    return render_template("sets/show_set.html", set=current_set)
+    headers = ("Reference", "Verse")
+    verses = current_set.verses
+
+    return render_template("sets/show_set.html",
+                           set=current_set,
+                           headers=headers,
+                           verses=verses)
 
 
 @app.route("/sets/<int:set_id>/test")

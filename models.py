@@ -143,7 +143,6 @@ class Verse(db.Model):
         return f"<Verse {self.reference} {self.verse[:10]}>"
 
 
-# DO NOT MODIFY THIS FUNCTION
 def connect_db(app):
     """Connect to database."""
 
