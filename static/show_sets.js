@@ -16,6 +16,7 @@ $(document).ready(makeFirstCardActive);
 
 
 
+
 function handleFlipCard(evt) {
   let $cardBody = $(evt.target).closest(".card-body");
 
