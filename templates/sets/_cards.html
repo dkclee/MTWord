@@ -1,11 +1,13 @@
-<div id="set-carousel" class="carousel slide" data-ride="carousel" data-interval="false" data-keyboard="true">
+<div id="set-carousel" class="carousel slide" data-ride="carousel" data-interval="false" data-keyboard="false">
     <div class="carousel-inner">
         {% for verse in set.verses %}
             <div class="carousel-item">
                 <div class="card m-auto" style="width: 26rem; height: 15rem;">
                     <div class="card-body">
                         <div class="front">
-                            <p class="h4"><b>{{ verse.reference }}</b></p>
+                            <p class="h4">
+                                <b>{{ verse.reference }}</b>
+                            </p>
                         </div>
                         <div class="back overflow-auto">
                             {{ verse.verse }}

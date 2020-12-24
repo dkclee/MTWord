@@ -28,8 +28,12 @@ function handleFlipCard(evt) {
 $carousel.on("click", ".card-body", handleFlipCard);
 
 
+/** Handles keypress in order to flip the card
+ *  or to shuffle through cards
+ */
+
 function handleKeyPress(evt) {
-  console.log(evt);
+
   if(evt.code === "ArrowDown" || evt.code === "ArrowUp") {
     handleFlipCard()
   } else if(evt.code === "ArrowRight") {
