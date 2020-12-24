@@ -315,6 +315,12 @@ def create_new_set():
         # Get all the verse instances with the references
         verses = get_all_verses(request.form.getlist('refs'))
 
+        if not verses:
+            db.session.delete(new_set)
+            db.session.commit()
+            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            return render_template("sets/add_set.html", form=form)
+
         new_set.verses += verses
 
         db.session.commit()
