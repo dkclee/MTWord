@@ -114,7 +114,7 @@ def index():
 def explore():
     """ Show the first 20 recent sets """
     page = request.args.get('page', 1, type=int)
-    sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 5)
+    sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 10)
     return render_template("explore.html", sets=sets.items, set_paginate=sets)
 
 
@@ -295,13 +295,17 @@ def edit_user_profile(user_id):
 def show_user_sets(user_id):
     """ Display the user's sets"""
 
+    page = request.args.get("page", 1, type=int)
+
     searched_user = User.query.get_or_404(user_id)
 
-    sets = searched_user.sets
+    sets = Set.query.filter_by(user_id=user_id).paginate(page, 10)
 
     return render_template("sets/sets_list.html",
-                           sets=sets,
+                           sets=sets.items,
+                           set_paginate=sets,
                            searched_user=searched_user)
+
 
 ####################################################################
 # Set Routes
