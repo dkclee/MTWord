@@ -319,9 +319,16 @@ def create_new_set():
 
     if form.validate_on_submit():
 
-        if not request.form.get('refs'):
-            form.name.errors = ["Please make sure to include at least 1 verse reference"]
-            return render_template("sets/add_set.html", form=form)
+        # Get all the verse instances with the references
+        verses = get_all_verses(request.form.getlist('refs'))
+
+        # If there are no valid references
+        if not verses:
+            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            return render_template("sets/add_edit_set.html",
+                                   form=form,
+                                   title="Add a new set",
+                                   verb="Create")
 
         name = form.name.data
 
@@ -334,15 +341,6 @@ def create_new_set():
         db.session.add(new_set)
         db.session.commit()
 
-        # Get all the verse instances with the references
-        verses = get_all_verses(request.form.getlist('refs'))
-
-        if not verses:
-            db.session.delete(new_set)
-            db.session.commit()
-            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
-            return render_template("sets/add_set.html", form=form)
-
         new_set.verses += verses
 
         db.session.commit()
@@ -351,15 +349,56 @@ def create_new_set():
 
         return redirect(url_for("show_set", set_id=new_set.id))
 
-    return render_template("sets/add_set.html", form=form)
+    return render_template("sets/add_edit_set.html",
+                           form=form,
+                           title="Add a new set",
+                           verb="Create")
 
 
 @app.route("/sets/<int:set_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_set(set_id):
-    """ Edit the set """
+    """ Display the functionality to the set """
 
+    form = SetForm()
 
+    current_set = Set.query.get(set_id)
+
+    if current_set.user_id != current_user.id:
+        abort(404)
+
+    if form.validate_on_submit():
+
+        # Get all the verse instances with the references
+        verses = get_all_verses(request.form.getlist('refs'))
+
+        if not verses:
+            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            return render_template("sets/add_edit_set.html",
+                                   form=form,
+                                   title="Edit your set",
+                                   verb="Edit",
+                                   verses=current_set.verses)
+
+        edited_set = Set.query.get(set_id)
+
+        edited_set.name = form.name.data
+        edited_set.description = form.description.data
+
+        edited_set.verses = verses
+
+        db.session.commit()
+
+        flash("Updated your set!", "info")
+
+        return redirect(url_for("show_set", set_id=set_id))
+
+    form = SetForm(obj=current_set)
+    return render_template("sets/add_edit_set.html",
+                           form=form,
+                           title="Edit your set",
+                           verb="Edit",
+                           verses=current_set.verses)
 
 
 @app.route("/sets/<int:set_id>")

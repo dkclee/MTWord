@@ -145,6 +145,10 @@ class Verse(db.Model):
 
     def __repr__(self):
         return f"<Verse {self.reference} {self.verse[:10]}>"
+    
+    @property
+    def hashed(self):
+        return hash(self.reference)
 
 
 def connect_db(app):

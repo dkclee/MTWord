@@ -65,11 +65,11 @@ $("#addFields").on("click", addFields)
 async function refreshVerseFields(evt) {
   const $input = $(evt.target);
   const targetId = $input.attr('id').split("-")[1];
-
+  
   const reference = $input.val();
-
+  
   const info = await retrieveVerse(reference);
-
+  
   $(`#verse-${targetId}`).val(info.passages);
 
   if ($input.val() !== info.reference) {
