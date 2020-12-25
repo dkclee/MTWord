@@ -205,7 +205,7 @@ def logout():
 
 
 ####################################################################
-# Reset Password Route
+# Reset Password Routes
 
 @app.route("/reset/pw", methods=["GET", "POST"])
 def request_reset_pw():
@@ -282,6 +282,18 @@ def edit_user_profile(user_id):
     """ Shows the user profile """
 
 
+@app.route("/users/<int:user_id>/sets")
+def show_user_sets(user_id):
+    """ Display the user's sets"""
+
+    searched_user = User.query.get_or_404(user_id)
+
+    sets = searched_user.sets
+
+    return render_template("sets/sets_list.html",
+                           sets=sets,
+                           searched_user=searched_user)
+
 ####################################################################
 # Set Routes
 
@@ -332,10 +344,12 @@ def create_new_set():
     return render_template("sets/add_set.html", form=form)
 
 
-@app.route("/sets/<int:set_id>/edit")
+@app.route("/sets/<int:set_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_set(set_id):
     """ Edit the set """
+
+
 
 
 @app.route("/sets/<int:set_id>")
@@ -345,11 +359,7 @@ def show_set(set_id):
         - Various studying means
     """
 
-    current_set = Set.query.get(set_id)
-
-    # If the set doesnt exist, 404
-    if not current_set:
-        abort(404)
+    current_set = Set.query.get_or_404(set_id)
 
     headers = ("Reference", "Verse")
     verses = current_set.verses

@@ -43,6 +43,10 @@ class User(UserMixin, db.Model):
     def update_password(self, pwd):
         """ Update the user's password """
         self.password = bcrypt.generate_password_hash(pwd).decode('utf8')
+    
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     @classmethod
     def register(cls, username, pwd, email, f_name, l_name):

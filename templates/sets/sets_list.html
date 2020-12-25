@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container justify-content-center my-4">
+
+    <h2 class="display-3 mt-5">Sets</h2>
+
+    {% if searched_term %}
+    <p class="lead">Searched term: <i>{{ searched_term }}</i></p>
+    {% endif %}
+
+    {% if searched_user %}
+    <p class="lead">Showing {{ searched_user.full_name }}'s sets</p>
+    {% endif %}
+
+    {% for set in sets %}
+    <div class="row justify-content-center my-5">
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('show_set', set_id=set.id)}}">{{ set.name }}</a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Made by 
+                        <a href="{{ url_for('show_user_profile', user_id=set.user_id)}}">
+                            {{ set.user.full_name}}
+                        </a>
+                    </h6>
+                    <p class="card-text">{{ set.description }}</p>
+                    <a href="#" class="card-link">Cards</a>
+                    <a href="#" class="card-link">Practice</a>
+                    <a href="#" class="card-link">Test</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
