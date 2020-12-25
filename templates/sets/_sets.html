@@ -1,23 +1,29 @@
-{% for set in sets %}
-    <div class="row justify-content-center my-5">
-        <div class="col-10">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ url_for('show_set', set_id=set.id)}}">{{ set.name }}</a>
-                    </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        Made by 
-                        <a href="{{ url_for('show_user_profile', user_id=set.user_id)}}">
-                            {{ set.user.full_name}}
-                        </a>
-                    </h6>
-                    <p class="card-text">{{ set.description }}</p>
-                    <a href="#" class="card-link">Cards</a>
-                    <a href="#" class="card-link">Practice</a>
-                    <a href="#" class="card-link">Test</a>
+{% if sets %}
+    {% for set in sets %}
+        <div class="row justify-content-center my-5">
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ url_for('show_set', set_id=set.id)}}">{{ set.name }}</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            Made by 
+                            <a href="{{ url_for('show_user_profile', user_id=set.user_id)}}">
+                                {{ set.user.full_name}}
+                            </a>
+                        </h6>
+                        <p class="card-text">{{ set.description }}</p>
+                        <a href="#" class="card-link">Cards</a>
+                        <a href="#" class="card-link">Practice</a>
+                        <a href="#" class="card-link">Test</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     {% endfor %}
+{% else %}
+    <div class="container">
+        <h2>Looks like we don't have any sets for you yet, create one <a href="{{ url_for('create_new_set') }}">here</a>!</h2>
+    </div>
+{% endif %}
