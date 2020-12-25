@@ -74,6 +74,10 @@ def get_esv_text(passage, get_verse_num=True):
         'include-short-copyright': False,
         'include-passage-references': False,
         'indent-poetry': False,
+        'indent-poetry-lines': 0,
+        'indent-paragraphs': 0,
+        'indent-declares': 0,
+        'indent-psalm-doxology': 0,
     }
 
     headers = {
