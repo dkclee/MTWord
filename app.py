@@ -369,6 +369,27 @@ def show_set_test(set_id):
 def show_set_cards(set_id):
     """ """
 
+
+@app.route("/sets/<int:set_id>/delete", methods=["POST"])
+def delete_set(set_id):
+    """ Delete the set, (if the set is not found, return 404) """
+
+    current_set = Set.query.get_or_404(set_id)
+
+    # Ensure only the actual user can delete the set
+    if current_set.user_id == current_user.id:
+        db.session.delete(current_set)
+        db.session.commit()
+
+        flash("Your set has been successfully deleted", "success")
+
+        return redirect(url_for("index"))
+    
+    flash("You cannot delete someone else's set!", "warning")
+    return redirect(request.referrer)
+
+
+
 ####################################################################
 # API Verse Routes
 
