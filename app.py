@@ -106,8 +106,17 @@ def show_401_page(err):
 
 @app.route("/")
 def index():
-    """ """
+    """ Show the homepage """
     return render_template("base.html")
+
+
+@app.route("/explore")
+def explore():
+    """ Show the first 20 recent sets """
+    page = request.args.get('page', 1, type=int)
+    sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 20, False)
+    return render_template("")
+
 
 
 ####################################################################
