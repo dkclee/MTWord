@@ -1,7 +1,7 @@
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
         <li class="page-item {% if set_paginate.page == 1 %}disabled{% endif %}">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="{{ url_for('explore', page=set_paginate.prev_num) }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -22,8 +22,8 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
-        <a class="page-link {% if set_paginate.page == set_paginate.pages %}disabled{% endif %}"
-            href="{{ url_for('explore', page=set_paginate.next_num) }}"><span aria-hidden="true">&raquo;</span></a>
+        <li class="page-item {% if set_paginate.page == set_paginate.pages %} disabled {% endif %}">
+            <a class="page-link" href="{{ url_for('explore', page=set_paginate.next_num) }}"><span aria-hidden="true">&raquo;</span></a>
         </li>
     </ul>
 </nav>
