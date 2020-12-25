@@ -40,7 +40,7 @@ function generateVerseField(num) {
                   </div>
               </div>
               <div class="col-lg my-2">
-                  <textarea class="form-control" id="verse-${num}" disabled>Verse</textarea>
+                  <textarea class="form-control" id="verse-${num}" disabled style="height: 6rem;">Verse</textarea>
               </div>
               <div class="delete-field col-lg-1 my-2">
                   <button class="btn btn-block btn-danger" type="button">
