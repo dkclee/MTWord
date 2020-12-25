@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-8 text-center">
+        <div class="col-9 text-center">
 
             <form method="POST" autocomplete="off" id="addSetForm">
 
@@ -31,18 +31,20 @@
 
                 {{ render_field(form.description,
                 form_type="horizontal") }}
-                <div id="verseFields">
 
-                    <div class="form-group row">
-                        <div class=" col-lg my-2">
+                <hr class="my-5">
+
+                <div id="verseFields">
+                    <div class="row">
+                        <div class="col-lg">
                             Reference
                             <p class="font-weight-light">Please use this format: <i>Book Chapter#:Verse#</i></p>
                         </div>
-                        <div class=" col-lg my-2">
+                        <div class="col-lg">
                             Verse
                             <p class="font-weight-light">Any references with more than one verse, the verse will have the verse numbers.</p>
                         </div>
-                        <div class=" col-lg-1 my-2">
+                        <div class="col-lg-1">
                             Delete
                         </div>
                     </div>

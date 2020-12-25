@@ -89,8 +89,6 @@ def get_esv_text(passage, get_verse_num=True):
     passages = response.json()['passages']
     reference = response.json()["query"]
 
-    # return response.json()
-
     return {
         'passages': passages[0].strip() if passages else 'Error: Passage not found',
         'reference': reference
