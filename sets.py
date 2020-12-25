@@ -28,7 +28,7 @@ import requests
 
 #     split_refs = ref.split(":")
 
-#     ref_arr 
+#     ref_arr
 
 def get_all_verses(references):
     """ With a list of references, return a list of valid verse instances

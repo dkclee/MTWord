@@ -11,6 +11,8 @@
 
     <h2 class="display-3 mt-5">Sets</h2>
 
+    
+
     {% if searched_term %}
     <p class="lead">Searched term: <i>{{ searched_term }}</i></p>
     {% endif %}
@@ -18,6 +20,22 @@
     {% if searched_user %}
     <p class="lead">Showing {{ searched_user.full_name }}'s sets</p>
     {% endif %}
+
+    <!-- TODO: Reorganize the order of the sets with the value of the select input -->
+    <!-- <form action="" class="form">
+        <div class="form-group row">
+            <div class="col-3">
+                <label for="order_by">Order by: </label>
+                <select class="form-control inline" name="order_by" id="order_by">
+                    <option value="">-----Select an option-----</option>
+                    <option value="a">A-Z</option>
+                    <option value="r-a">Z-A</option>
+                    <option value="new">Newest First</option>
+                    <option value="old">Oldest First</option>
+                </select>
+            </div>
+        </div>
+    </form> -->
 
     {% include 'sets/_sets.html' %}
 </div>

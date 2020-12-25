@@ -1,11 +1,10 @@
 import os
 
-from flask import Flask, redirect, render_template, session, flash, request, abort, url_for, jsonify
+from flask import Flask, redirect, render_template, flash, request, abort, url_for, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 
 from admin import MyAdminIndexView, MTWordModelView
 
@@ -21,8 +20,6 @@ from sets import get_esv_text, get_all_verses
 from secrets import token_urlsafe
 
 from flask_mail import Mail, Message
-
-import requests
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
@@ -394,6 +391,7 @@ def show_set_cards(set_id):
 
 
 @app.route("/sets/<int:set_id>/delete", methods=["POST"])
+@login_required
 def delete_set(set_id):
     """ Delete the set, (if the set is not found, return 404) """
 
@@ -407,10 +405,9 @@ def delete_set(set_id):
         flash("Your set has been successfully deleted", "success")
 
         return redirect(url_for("index"))
-    
+
     flash("You cannot delete someone else's set!", "warning")
     return redirect(request.referrer)
-
 
 
 ####################################################################
