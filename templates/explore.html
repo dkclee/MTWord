@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1 class="display-4">Add a new note!</h1>
+<div class="container my-5">
+    <h1 class="display-4">Explore our sets!</h1>
 
-  
+
+    {% include 'sets/_sets.html' %}
+</div>
+
+{% include 'sets/_pagination.html' %}
+
 
 {% endblock %}

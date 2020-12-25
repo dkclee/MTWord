@@ -114,8 +114,8 @@ def index():
 def explore():
     """ Show the first 20 recent sets """
     page = request.args.get('page', 1, type=int)
-    sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 20, False)
-    return render_template("")
+    sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 5)
+    return render_template("explore.html", sets=sets.items, set_paginate=sets)
 
 
 
