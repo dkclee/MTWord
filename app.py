@@ -188,7 +188,7 @@ def handle_login():
             form.username.errors = ["Wrong username or password"]
             form.password.errors = ["Wrong username or password"]
 
-            return render_template('login.html', form=form)
+            return render_template('login_register/login.html', form=form)
 
         login_user(user)
 
