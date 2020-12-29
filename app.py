@@ -383,8 +383,8 @@ def create_new_set():
 @app.route("/sets/<int:set_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_set(set_id):
-    """ Display the functionality to the set 
-        - Populate the form with data ahead of time 
+    """ Display the functionality to the set
+        - Populate the form with data ahead of time
     """
 
     form = SetForm()
