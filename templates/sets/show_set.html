@@ -164,7 +164,7 @@
             {% endif %}
         {% else %}
         <div class="col">
-            <a href="{{ url_for('handle_login') }}">Log In</a> to be able to favorite or copy this set!
+            <a href="{{ url_for('handle_login') }}?next=/sets/{{set.id}}">Log In</a> to be able to favorite or copy this set!
         </div>
         {% endif %}
 

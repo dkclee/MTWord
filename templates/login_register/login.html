@@ -14,9 +14,11 @@
 
       <form method="POST" autocomplete="off">
 
+        <input type="hidden" name="next" value="{{ request.args.get('next', '') }}" />
+
         {{ form.csrf_token() }}
         {{ render_hidden_errors(form) }}
-        
+
         {{ render_field(form.username,
         form_type="horizontal") }}
 
