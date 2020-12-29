@@ -21,6 +21,8 @@ from secrets import token_urlsafe
 
 from flask_mail import Mail, Message
 
+from urllib.parse import urlparse, urljoin
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///bible_memorization'))
@@ -98,6 +100,22 @@ def show_401_page(err):
 
 
 ####################################################################
+# Helper Function
+
+def is_safe_url(target):
+    """ Helper function to determine whether the next url
+        is safe
+        - Does not allow users to go to a delete route
+    """
+
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+        ref_url.netloc == test_url.netloc and \
+        'delete' not in ref_url.path
+
+
+####################################################################
 # Homepage
 
 
@@ -110,8 +128,10 @@ def index():
 @app.route("/explore")
 def explore():
     """ Show the first 20 recent sets """
+
     page = request.args.get('page', 1, type=int)
     sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 10)
+
     return render_template("explore.html", sets=sets.items, set_paginate=sets)
 
 
@@ -400,6 +420,58 @@ def edit_set(set_id):
                            form=form,
                            title="Edit your set",
                            verb="Edit",
+                           verses=current_set.verses)
+
+
+@app.route("/sets/<int:set_id>/copy", methods=["GET", "POST"])
+@login_required
+def copy_set(set_id):
+    """ Display the functionality to copy someone else's set
+        - Populate the form with data ahead of time
+    """
+
+    form = SetForm()
+
+    current_set = Set.query.get(set_id)
+
+    if current_set.user_id == current_user.id:
+        abort(404)
+
+    if form.validate_on_submit():
+
+        # Get all the verse instances with the references
+        verses = get_all_verses(request.form.getlist('refs'))
+
+        if not verses:
+            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            return render_template("sets/add_edit_set.html",
+                                   form=form,
+                                   title="Copy someone else's set",
+                                   verb="Copy",
+                                   verses=current_set.verses)
+
+        copied_set = Set(
+            name=form.name.data,
+            description=form.description.data,
+            user_id=current_user.id,
+        )
+
+        db.session.add(copied_set)
+        db.session.commit()
+
+        copied_set.verses = verses
+
+        db.session.commit()
+
+        flash("Copied the set!", "info")
+
+        return redirect(url_for("show_set", set_id=copied_set.id))
+
+    form = SetForm(obj=current_set)
+    return render_template("sets/add_edit_set.html",
+                           form=form,
+                           title="Copy someone else's set",
+                           verb="Copy",
                            verses=current_set.verses)
 
 
