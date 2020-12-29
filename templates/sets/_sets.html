@@ -22,7 +22,7 @@
             </div>
         </div>
     {% endfor %}
-{% else %}
+{% elif user != current_user %}
     <div class="container my-4">
         <h2>Looks like we don't have any sets for you yet, create one <a href="{{ url_for('create_new_set') }}">here</a>!</h2>
     </div>

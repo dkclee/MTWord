@@ -11,14 +11,12 @@
 
     <h2 class="display-3 mt-5">Sets</h2>
 
-    
-
     {% if searched_term %}
     <p class="lead">Searched term: <i>{{ searched_term }}</i></p>
     {% endif %}
 
-    {% if searched_user %}
-    <p class="lead">Showing {{ searched_user.full_name }}'s sets</p>
+    {% if user %}
+    <p class="lead">Showing {{ user.full_name }}'s sets</p>
     {% endif %}
 
     <!-- TODO: Reorganize the order of the sets with the value of the select input -->
