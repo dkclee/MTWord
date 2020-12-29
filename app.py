@@ -139,7 +139,6 @@ def explore():
 ####################################################################
 # Login/Registration Routes
 
-
 @app.route('/register', methods=["GET", "POST"])
 def handle_registration():
     """ Show the registration form or handles the registration
@@ -214,7 +213,13 @@ def handle_login():
 
         flash('Logged in successfully.', "success")
 
-        return redirect(url_for('index'))
+        next = request.args.get('next')
+
+        # Validate the next url
+        if not is_safe_url(next):
+            return abort(400)
+
+        return redirect(next or url_for('index'))
 
     return render_template('login_register/login.html', form=form)
 
