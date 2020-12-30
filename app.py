@@ -332,7 +332,7 @@ def edit_user_profile(user_id):
 @login_required
 def create_new_set():
     """ Creates a new set
-        - Validates that there is at least 1 verse reference
+        - Validates that there is at least 1 valid verse reference
     """
 
     form = SetForm()
