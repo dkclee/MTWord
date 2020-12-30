@@ -321,23 +321,7 @@ def show_user_profile(user_id):
 @app.route("/users/<int:user_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_user_profile(user_id):
-    """ Shows the user profile """
-
-
-# @app.route("/users/<int:user_id>/sets")
-# def show_user_sets(user_id):
-#     """ Display the user's sets"""
-
-#     page = request.args.get("page", 1, type=int)
-
-#     searched_user = User.query.get_or_404(user_id)
-
-#     sets = Set.query.filter_by(user_id=user_id).paginate(page, 10)
-
-#     return render_template("sets/sets_list.html",
-#                            sets=sets.items,
-#                            set_paginate=sets,
-#                            user=searched_user,)
+    """ Edit the user profile """
 
 
 ####################################################################
