@@ -1,3 +1,5 @@
+{% from 'sets/_pagination.html' import pagination %}
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -20,7 +22,7 @@
         <div class="col-lg-9">
             {% include 'sets/_sets.html' %}
             
-            {% include 'sets/_pagination.html' %}
+            {{ pagination(set_paginate, "/users/%s"|format(current_user.id) ) }}
         </div>
     </div>
 

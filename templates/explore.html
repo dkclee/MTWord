@@ -1,3 +1,5 @@
+{% from 'sets/_pagination.html' import pagination %}
+
 {% extends 'base.html' %}
 {% block content %}
 
@@ -8,7 +10,7 @@
     {% include 'sets/_sets.html' %}
 </div>
 
-{% include 'sets/_pagination.html' %}
+{{ pagination(set_paginate, '/explore')}}
 
 
 {% endblock %}
