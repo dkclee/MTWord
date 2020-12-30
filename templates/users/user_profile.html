@@ -22,7 +22,7 @@
         <div class="col-lg-9">
             {% include 'sets/_sets.html' %}
             
-            {{ pagination(set_paginate, "/users/%s"|format(current_user.id) ) }}
+            {{ pagination(set_paginate, "/users/%s"|format(user.id) ) }}
         </div>
     </div>
 
