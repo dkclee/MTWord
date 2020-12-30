@@ -67,7 +67,14 @@
 
 <div class="container my-4">
     <h1 class="display-4 mt-5"><b>Set Name: </b>{{ set.name }}</h1>
-    <p class="lead"><i>Description: </i>{{ set.description }}</p>
+    <p class="lead m-0"><i>Description: </i>{{ set.description }}</p>
+    <p class="lead m-0">
+        <b>Made by: </b>
+        <a href="{{ url_for('show_user_profile', user_id=set.user_id)}}">
+            {{ set.user.full_name }}
+        </a>
+    </p>
+
 
     <div class="row my-5 align-items-center">
         <div class="col-lg-3 my-2">
