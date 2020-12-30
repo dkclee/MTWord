@@ -13,7 +13,7 @@ from flask_bootstrap import Bootstrap
 from models import db, connect_db, User, Set, SetVerse, Verse
 from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm, SetForm
 
-from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, EMAIL_PASSWORD, EMAIL_USER
+from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_settings
 
 from sets import get_esv_text, get_all_verses
 
@@ -45,17 +45,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "handle_login"
 login_manager.login_message = "Please log in!"
-
-
-mail_settings = {
-    "MAIL_SERVER": 'smtp.gmail.com',
-    "MAIL_PORT": 465,
-    "MAIL_USE_TLS": False,
-    "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": EMAIL_USER,
-    "MAIL_DEFAULT_SENDER": EMAIL_USER,
-    "MAIL_PASSWORD": EMAIL_PASSWORD
-}
 
 app.config.update(mail_settings)
 mail = Mail(app)
