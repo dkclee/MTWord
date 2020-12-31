@@ -11,7 +11,7 @@ from admin import MyAdminIndexView, MTWordModelView
 from flask_bootstrap import Bootstrap
 
 from models import db, connect_db, User, Set, SetVerse, Verse
-from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm, SetForm
+from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm, SetForm, EditUserForm
 
 from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_settings
 
@@ -149,7 +149,7 @@ def handle_registration():
         form.username.errors = ["This username is already being used"]
 
     if form.email.errors or form.username.errors:
-        return render_template('register.html', form=form)
+        return render_template('login_register/register.html', form=form)
 
     if form.validate_on_submit():
         pwd = form.password.data
@@ -248,6 +248,8 @@ def request_reset_pw():
         msg = Message("Your password token",
                       recipients=[email])
         msg.html = f"""<p>
+                            Hello! Your username is {user.username}
+                            <hr>
                             <a href="http://localhost:5000/reset/pw/{token}">
                                 Click here to change your password
                             </a>
@@ -315,7 +317,29 @@ def edit_user_profile(user_id):
     if current_user.id != user_id:
         abort(404)
 
-    
+    form = EditUserForm()
+
+    if form.validate_on_submit():
+        # Check to see if there is already someone else with this username
+        same_username_user = User.query.filter_by(username=form.username.data).first()
+        is_unique_username = same_username_user != current_user
+        if same_username_user and is_unique_username:
+            form.username.errors = ["Username is already taken"]
+            return render_template("users/edit_user.html", form=form)
+
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.username = form.username.data
+        current_user.bio = form.bio.data
+
+        db.session.commit()
+
+        flash("Successfully edited your information!", "success")
+        return redirect(url_for("show_user_profile", user_id=current_user.id))
+
+    form = EditUserForm(obj=current_user)
+
+    return render_template("users/edit_user.html", form=form)
 
 
 ####################################################################

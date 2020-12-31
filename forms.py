@@ -35,6 +35,16 @@ class RegisterForm(FlaskForm):
     recaptcha = RecaptchaField()
 
 
+class EditUserForm(FlaskForm):
+    """Form for editing a user information."""
+
+    first_name = StringField("First Name", validators=[InputRequired()])
+    last_name = StringField("Last Name", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired(),
+                                                   Length(max=20)])
+    bio = TextAreaField("Bio")
+
+
 class LoginForm(FlaskForm):
     """Form for registering a user."""
 

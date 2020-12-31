@@ -1,0 +1,53 @@
+{% from 'bootstrap/form.html' import render_field, render_hidden_errors %}
+
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container justify-content-center my-4 text-center">
+
+    <h1 class="display-4 my-5">Edit your information!</h1>
+
+    <div class="row justify-content-center">
+
+        <div class="col-9 text-center">
+
+            <form method="POST" autocomplete="off" id="addSetForm">
+
+                {{ form.csrf_token() }}
+                {{ render_hidden_errors(form) }}
+
+                {{ render_field(form.first_name,
+                form_type="horizontal") }}
+
+                {{ render_field(form.last_name,
+                form_type="horizontal") }}
+
+                {{ render_field(form.username,
+                form_type="horizontal") }}
+    
+                {{ render_field(form.bio,
+                form_type="horizontal") }}
+
+                
+                <button class="btn btn-info" type="submit">Edit user info!</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}

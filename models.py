@@ -28,6 +28,7 @@ class User(UserMixin, db.Model):
                          unique=True)
     password = db.Column(db.Text,
                          nullable=False)
+    bio = db.Column(db.Text)
 
     is_admin = db.Column(db.Boolean,
                          default=False,
