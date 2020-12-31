@@ -18,8 +18,10 @@
                     </b> 
                     {% if user.bio %}
                         {{user.bio}}
-                    {% else %}
+                    {% elif current_user == user %}
                         Add your bio here!
+                    {% else %}
+                        <i>The user doesn't have a bio yet 😢</i>
                     {% endif %}
                 </p>
                 <hr>
