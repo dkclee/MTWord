@@ -476,10 +476,13 @@ def show_set(set_id):
     headers = ("Reference", "Verse")
     verses = current_set.verses
 
+    is_favorite = current_set in current_user.favorite_sets
+
     return render_template("sets/show_set.html",
                            set=current_set,
                            headers=headers,
-                           verses=verses)
+                           verses=verses,
+                           is_favorite=is_favorite,)
 
 
 @app.route("/sets/<int:set_id>/cards")
