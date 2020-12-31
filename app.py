@@ -531,3 +531,24 @@ def lookup_verse():
     info = get_esv_text(reference, get_verse_num)
 
     return jsonify(info=info)
+
+
+@app.route("/api/sets/<int:set_id>/favorite")
+@login_required
+def toggle_favorite(set_id):
+    """ Add or Remove a specific set from a user's favorites """
+
+    the_set = Set.query.get(set_id)
+
+    users_favorited_sets = current_user.favorite_sets
+
+    if the_set in users_favorited_sets:
+        users_favorited_sets.remove(the_set)
+        message = "Removed"
+    else:
+        users_favorited_sets.append(the_set)
+        message = "Added"
+
+    db.session.commit()
+
+    return jsonify(message=message)

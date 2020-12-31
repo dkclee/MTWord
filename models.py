@@ -130,7 +130,7 @@ class Favorite(db.Model):
     set_id = db.Column(db.Integer,
                        db.ForeignKey('sets.id'))
     user_id = db.Column(db.Integer,
-                        db.ForeignKey('user.id'))
+                        db.ForeignKey('users.id'))
 
 
 class SetVerse(db.Model):
