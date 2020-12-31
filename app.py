@@ -533,7 +533,7 @@ def lookup_verse():
     return jsonify(info=info)
 
 
-@app.route("/api/sets/<int:set_id>/favorite")
+@app.route("/api/sets/<int:set_id>/favorite", methods=["POST"])
 @login_required
 def toggle_favorite(set_id):
     """ Add or Remove a specific set from a user's favorites """

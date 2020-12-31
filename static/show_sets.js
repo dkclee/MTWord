@@ -1,5 +1,9 @@
 "use strict";
 
+const FAVORITES_URL = function(set_id) {
+  return `/api/sets/${set_id}/favorite`
+} 
+
 const $carousel = $("#set-carousel");
 
 /** Make the first card active so that the 
@@ -45,3 +49,33 @@ function handleKeyPress(evt) {
 
 
 $(document).on("keydown", handleKeyPress)
+
+
+/** Toggle favorites 
+ *  - Make an API call to change database
+ *  - Change the button color (success to warning & 
+ *    vice versa)
+ */
+
+async function toggleFavorites(evt) {
+  let $favBtn = $("#favoriteSetBtn");
+
+  let set_id = $favBtn.data("set_id");
+
+  let resp = await axios.post(FAVORITES_URL(set_id));
+
+  let msg = resp.data.message;
+
+  if (msg === "Added") {
+    $("#favoriteSetBtnText").text("Unfavorite this set")
+  } else {
+    $("#favoriteSetBtnText").text("Favorite this set")
+  }
+
+  $favBtn.toggleClass("btn-outline-success");
+  $favBtn.toggleClass("btn-outline-warning");
+
+}
+
+
+$("#favoriteSetBtn").on("click", toggleFavorites);
