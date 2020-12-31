@@ -13,7 +13,7 @@ from admin import MyAdminIndexView, MTWordModelView
 from flask_bootstrap import Bootstrap
 
 from models import db, connect_db, User, Set, Verse
-from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, \
+from forms import RegisterForm, LoginForm, ResetPasswordForm, \
     RequestResetPasswordForm, SetForm, EditUserForm
 
 from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_settings
