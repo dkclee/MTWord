@@ -312,6 +312,11 @@ def show_user_profile(user_id):
 def edit_user_profile(user_id):
     """ Edit the user profile """
 
+    if current_user.id != user_id:
+        abort(404)
+
+    
+
 
 ####################################################################
 # Set Routes

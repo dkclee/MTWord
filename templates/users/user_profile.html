@@ -12,10 +12,20 @@
         <div class="col-lg-3">
             <h3>Name: {{ user.full_name }}</h3>
             <div>
-                <p>Bio: <br>
-                {{user.bio}}
+                <p>
+                    <b>
+                        Bio: <br><br>
+                    </b> 
+                    {% if user.bio %}
+                        {{user.bio}}
+                    {% else %}
+                        Add your bio here!
+                    {% endif %}
                 </p>
-
+                <hr>
+                {% if user == current_user %}
+                    <a href="/users/{{user.id}}/edit">Edit your profile!</a>
+                {% endif %}
             </div>
         </div>
 
