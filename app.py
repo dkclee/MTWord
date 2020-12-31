@@ -99,6 +99,7 @@ def is_safe_url(target):
 
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
+
     return test_url.scheme in ('http', 'https') and \
         ref_url.netloc == test_url.netloc and \
         'delete' not in ref_url.path
@@ -296,13 +297,32 @@ def reset_pw(token):
 def show_user_profile(user_id):
     """ Shows the user profile """
 
-    user = User.query.get(user_id)
+    user = User.query.get_or_404(user_id)
 
     page = request.args.get("page", 1, type=int)
 
     sets = Set.query.filter_by(user_id=user.id).paginate(page, 10)
 
     return render_template("users/user_profile.html",
+                           user=user,
+                           sets=sets.items,
+                           set_paginate=sets,
+                           )
+
+
+@app.route("/users/<int:user_id>/favorites")
+def show_user_favorites(user_id):
+    """ Shows the user's favorited sets """
+
+    user = User.query.get_or_404(user_id)
+
+    page = request.args.get("page", 1, type=int)
+
+    favorited_sets_id = set([fav_set.id for fav_set in user.favorite_sets])
+
+    sets = Set.query.filter(Set.id.in_(favorited_sets_id)).paginate(page, 10)
+
+    return render_template("users/user_favorites.html",
                            user=user,
                            sets=sets.items,
                            set_paginate=sets,
@@ -323,6 +343,7 @@ def edit_user_profile(user_id):
         # Check to see if there is already someone else with this username
         same_username_user = User.query.filter_by(username=form.username.data).first()
         is_unique_username = same_username_user != current_user
+
         if same_username_user and is_unique_username:
             form.username.errors = ["Username is already taken"]
             return render_template("users/edit_user.html", form=form)

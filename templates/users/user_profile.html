@@ -24,10 +24,12 @@
                         <i>The user doesn't have a bio yet 😢</i>
                     {% endif %}
                 </p>
-                <hr>
                 {% if user == current_user %}
+                <hr>
                     <a href="/users/{{user.id}}/edit">Edit your profile!</a>
                 {% endif %}
+                <hr>
+                <a href="/users/{{user.id}}/favorites">View the user's favorite sets</a>
             </div>
         </div>
 
