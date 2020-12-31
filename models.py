@@ -34,8 +34,11 @@ class User(UserMixin, db.Model):
                          nullable=False)
     password_reset_token = db.Column(db.Text)
 
+    # Relationship with Sets and favorites
     sets = db.relationship('Set',
                            backref='user')
+    favorite_sets = db.relationship('Set',
+                                    secondary='favorites',)
 
     def __repr__(self):
         return f"<User {self.first_name} {self.last_name}>"
@@ -114,6 +117,20 @@ class Set(db.Model):
 
     def __repr__(self):
         return f"<Set {self.name} by {self.user.first_name} {self.user.last_name}>"
+
+
+class Favorite(db.Model):
+    """ User's favorited sets """
+
+    __tablename__ = "favorites"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    set_id = db.Column(db.Integer,
+                       db.ForeignKey('sets.id'))
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('user.id'))
 
 
 class SetVerse(db.Model):
