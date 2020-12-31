@@ -1,17 +1,20 @@
 import os
 
-from flask import Flask, redirect, render_template, flash, request, abort, url_for, jsonify
+from flask import Flask, redirect, render_template, flash, request, abort, \
+    url_for, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from flask_login import LoginManager, login_user, logout_user, \
+    current_user, login_required
 from flask_admin import Admin
 
 from admin import MyAdminIndexView, MTWordModelView
 
 from flask_bootstrap import Bootstrap
 
-from models import db, connect_db, User, Set, SetVerse, Verse
-from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, RequestResetPasswordForm, SetForm, EditUserForm
+from models import db, connect_db, User, Set, Verse
+from forms import RegisterForm, LoginForm, DeleteForm, ResetPasswordForm, \
+    RequestResetPasswordForm, SetForm, EditUserForm
 
 from secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_settings
 
@@ -341,7 +344,10 @@ def edit_user_profile(user_id):
 
     if form.validate_on_submit():
         # Check to see if there is already someone else with this username
-        same_username_user = User.query.filter_by(username=form.username.data).first()
+        same_username_user = User.query.filter_by(
+            username=form.username.data
+        ).first()
+
         is_unique_username = same_username_user != current_user
 
         if same_username_user and is_unique_username:
@@ -383,7 +389,9 @@ def create_new_set():
 
         # If there are no valid references
         if not verses:
-            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            form.name.errors = [
+                "Please make sure to include at least 1 valid verse reference"
+            ]
             return render_template("sets/add_edit_set.html",
                                    form=form,
                                    title="Add a new set",
@@ -434,7 +442,9 @@ def edit_set(set_id):
         verses = get_all_verses(request.form.getlist('refs'))
 
         if not verses:
-            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            form.name.errors = [
+                "Please make sure to include at least 1 valid verse reference"
+            ]
             return render_template("sets/add_edit_set.html",
                                    form=form,
                                    title="Edit your set",
@@ -482,7 +492,9 @@ def copy_set(set_id):
         verses = get_all_verses(request.form.getlist('refs'))
 
         if not verses:
-            form.name.errors = ["Please make sure to include at least 1 valid verse reference"]
+            form.name.errors = [
+                "Please make sure to include at least 1 valid verse reference"
+            ]
             return render_template("sets/add_edit_set.html",
                                    form=form,
                                    title="Copy someone else's set",
