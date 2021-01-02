@@ -10,6 +10,7 @@ db = SQLAlchemy()
 
 bcrypt = Bcrypt()
 
+
 class SearchableMixin(object):
     @classmethod
     def search(cls, expression, page, per_page):
@@ -148,7 +149,8 @@ class Set(SearchableMixin, db.Model):
                              backref='sets')
 
     def __repr__(self):
-        return f"<Set {self.name} by {self.user.first_name} {self.user.last_name}>"
+        return f"<Set {self.name} by {self.user.first_name} \
+            {self.user.last_name}>"
 
 
 class Favorite(db.Model):
