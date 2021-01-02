@@ -156,11 +156,6 @@ def search():
                            next_url=next_url, prev_url=prev_url,
                            num_pages=total//10 + 1, page=page)
 
-    # return render_template("search.html",
-    #                        sets=sets.items,
-    #                        set_paginate=sets,
-    #                        term=term)
-
 
 ####################################################################
 # Login/Registration Routes
