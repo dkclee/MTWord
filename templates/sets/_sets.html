@@ -22,6 +22,10 @@
             </div>
         </div>
     {% endfor %}
+{% elif type == 'fav' %}
+    <div class="container my-4">
+        <h3>Looks like the user doesn't have any favorited sets yet. 🙁</h3>
+    </div>
 {% elif user == current_user %}
     <div class="container my-4">
         <h3>Looks like we don't have any sets for you yet, let's create one <a href="{{ url_for('create_new_set') }}">here</a>!</h3>

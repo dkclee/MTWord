@@ -6,6 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_user, logout_user, \
     current_user, login_required
+
 from flask_admin import Admin
 
 from admin import MyAdminIndexView, MTWordModelView
@@ -362,6 +363,7 @@ def show_user_favorites(user_id):
                            user=user,
                            sets=sets.items,
                            set_paginate=sets,
+                           type="fav"
                            )
 
 
