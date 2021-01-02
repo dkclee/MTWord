@@ -48,3 +48,5 @@ db.session.commit()
 
 new_set.verses = [verse1, verse2]
 db.session.commit()
+
+Set.reindex()

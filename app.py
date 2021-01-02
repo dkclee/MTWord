@@ -12,6 +12,8 @@ from admin import MyAdminIndexView, MTWordModelView
 
 from flask_bootstrap import Bootstrap
 
+from elasticsearch import Elasticsearch
+
 from models import db, connect_db, User, Set, Verse
 from forms import RegisterForm, LoginForm, ResetPasswordForm, \
     RequestResetPasswordForm, SetForm, EditUserForm
@@ -29,7 +31,7 @@ from urllib.parse import urlparse, urljoin
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///bible_memorization'))
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
@@ -39,9 +41,15 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC_KEY
 app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
 
+
+app.config['ELASTICSEARCH_URL'] = os.environ.get('ELASTICSEARCH_URL')
+app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
+    if app.config['ELASTICSEARCH_URL'] else None
+
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
+
 Bootstrap(app)
 
 login_manager = LoginManager()
@@ -58,12 +66,10 @@ admin = Admin(app,
               index_view=MyAdminIndexView())
 app.config['FLASK_ADMIN_SWATCH'] = 'journal'
 
-
 # Administrative views
 admin.add_view(MTWordModelView(User, db.session))
 admin.add_view(MTWordModelView(Set, db.session))
 admin.add_view(MTWordModelView(Verse, db.session))
-
 
 db.create_all()
 
@@ -120,12 +126,39 @@ def index():
 
 @app.route("/explore")
 def explore():
-    """ Show the first 20 recent sets """
+    """ Show the most recent sets
+        - Paginate with each page having 10 sets
+    """
 
     page = request.args.get('page', 1, type=int)
     sets = Set.query.order_by(Set.created_at.desc()).paginate(page, 10)
 
     return render_template("explore.html", sets=sets.items, set_paginate=sets)
+
+
+@app.route("/search")
+def search():
+    """ Show the sets matching the searched terms
+        - Show 10 and paginate
+    """
+    term = request.args.get('term')
+    page = request.args.get('page', 1, type=int)
+
+    sets, total = Set.search(term, page, 10)
+
+    next_url = url_for('search', term=term, page=page + 1) \
+        if total > page * 10 else None
+    prev_url = url_for('search', term=term, page=page - 1) \
+        if page > 1 else None
+
+    return render_template('search.html', sets=sets, term=term,
+                           next_url=next_url, prev_url=prev_url,
+                           num_pages=total//10 + 1, page=page)
+
+    # return render_template("search.html",
+    #                        sets=sets.items,
+    #                        set_paginate=sets,
+    #                        term=term)
 
 
 ####################################################################

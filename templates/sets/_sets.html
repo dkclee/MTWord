@@ -26,6 +26,10 @@
     <div class="container my-4">
         <h3>Looks like we don't have any sets for you yet, let's create one <a href="{{ url_for('create_new_set') }}">here</a>!</h3>
     </div>
+{% elif term %}
+    <div class="container my-4">
+        <h3>Looks like we can't find any sets that match that term.</h3>
+    </div>
 {% else %}
     <div class="container my-4">
         <h2>Looks like this user doesn't have any sets yet 🙁</h2>

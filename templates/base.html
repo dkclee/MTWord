@@ -55,8 +55,8 @@
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0 justify-content-center">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search for sets">
+            <form class="form-inline my-2 my-lg-0 justify-content-center" action="{{ url_for('search') }}" autocomplete="off">
+                <input class="form-control mr-sm-2" type="text" name="term" placeholder="Search for sets">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
 
