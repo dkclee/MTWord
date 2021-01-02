@@ -24,7 +24,18 @@
     {% endfor %}
 {% elif type == 'fav' %}
     <div class="container my-4">
-        <h3>Looks like the user doesn't have any favorited sets yet. 🙁</h3>
+        {% if user == current_user %}
+            <h3>Looks like you don't have any favorited sets yet. 🙁</h3>
+            <p class="lead">
+                Let's find some sets to favorite 
+                <a href="{{url_for('explore')}}">
+                    here
+                </a>
+                !
+            </p>
+        {% else %}
+            <h3>Looks like the user doesn't have any favorited sets yet. 🙁</h3>
+        {% endif %}
     </div>
 {% elif user == current_user %}
     <div class="container my-4">
