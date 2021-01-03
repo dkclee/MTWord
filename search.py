@@ -2,6 +2,7 @@ from flask import current_app
 
 
 def add_to_index(index, model):
+    # If elastic search is not implemented, return nothing
     if not current_app.elasticsearch:
         return
     payload = {}
