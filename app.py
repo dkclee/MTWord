@@ -599,7 +599,7 @@ def delete_set(set_id):
 
     current_set = Set.query.get_or_404(set_id)
 
-    # Ensure only the actual user can delete the set
+    # Ensure only the owner can delete the set
     if current_set.user_id == current_user.id:
         db.session.delete(current_set)
         db.session.commit()
