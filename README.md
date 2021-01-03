@@ -1,9 +1,10 @@
 ## MTWord
 <!-- A little info about your project and/ or overview that explains **what** the project is about. -->
-MTWord stands for Memorize the Word and is like a quizlet clone but for Bible verses
+MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clone but for Bible verses (using the [ESV](https://www.esv.org/))
 
 ## Motivation
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+<!-- A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists. -->
+After a conversation with one of my friends, we realized how difficult it is to memorize Bible verses. I wanted to try to build something to aid making Bible verse sets along with providing features to aid memorization.
 
 ## Build status
 Build status of continus integration i.e. travis, appveyor etc. Ex. - 
@@ -20,10 +21,9 @@ If you're using any code style like xo, standard etc. That will help others whil
 Include logo/demo screenshot etc.
 
 ## Tech/framework used
-Ex. -
 
 <b>Built with</b>
-- [Electron](https://electron.atom.io)
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
 ## Features
 What makes your project stand out?
