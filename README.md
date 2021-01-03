@@ -1,5 +1,6 @@
 ## MTWord
-A little info about your project and/ or overview that explains **what** the project is about.
+<!-- A little info about your project and/ or overview that explains **what** the project is about. -->
+MTWord stands for Memorize the Word and is like a quizlet clone but for Bible verses
 
 ## Motivation
 A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
