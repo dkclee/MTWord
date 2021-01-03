@@ -6,7 +6,7 @@ MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clo
 <!-- A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists. -->
 After a conversation with one of my friends, we realized how difficult it is to memorize Bible verses. I wanted to try to build something to aid making Bible verse sets along with providing features to aid memorization.
 
-## Build status
+<!-- ## Build status
 Build status of continus integration i.e. travis, appveyor etc. Ex. - 
 
 [![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
@@ -18,14 +18,14 @@ If you're using any code style like xo, standard etc. That will help others whil
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
  
 ## Screenshots
-Include logo/demo screenshot etc.
+Include logo/demo screenshot etc. -->
 
 ## Tech/framework used
 
 <b>Built with</b>
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
-## Features
+<!-- ## Features
 What makes your project stand out?
 
 ## Code Example
@@ -56,4 +56,4 @@ Give proper credits. This could be a link to any repo which inspired you to buil
 ## License
 A short snippet describing the license (MIT, Apache etc)
 
-MIT © [Yourname]()
+MIT © [Yourname]() -->
