@@ -25,9 +25,11 @@ Include logo/demo screenshot etc. -->
 <b>Built with</b>
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
     * [Flask-Admin](https://flask-admin.readthedocs.io/en/latest/)
+    * [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/latest/)
     * [Flask-Bootstrap](https://pythonhosted.org/Flask-Bootstrap/)
-    * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/)
+    * [Flask-Mail](https://pythonhosted.org/Flask-Mail/)
     * [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
+    * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/)
 
 
 <!-- ## Features
