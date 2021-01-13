@@ -30,6 +30,7 @@ Include logo/demo screenshot etc. -->
     * [Flask-Mail](https://pythonhosted.org/Flask-Mail/)
     * [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
     * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/)
+- [Elasticsearch](https://www.elastic.co/guide/index.html)
 
 
 <!-- ## Features
