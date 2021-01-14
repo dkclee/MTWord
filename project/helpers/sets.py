@@ -1,6 +1,6 @@
-from secret import API_KEY, API_URL
+from project.secret import API_KEY, API_URL
 
-from models import db, Verse
+from project.models import db, Verse
 
 import requests
 
@@ -90,6 +90,7 @@ def get_esv_text(passage, get_verse_num=True):
     reference = response.json()["query"]
 
     return {
-        'passages': passages[0].strip() if passages else 'Error: Passage not found',
+        'passages': passages[0].strip()
+        if passages else 'Error: Passage not found',
         'reference': reference
     }
