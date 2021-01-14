@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask_debugtoolbar import DebugToolbarExtension
 
-from flask_login import LoginManager
+from flask_login import LoginManager, login_manager
 
 from flask_admin import Admin
 
@@ -21,10 +21,10 @@ from project.secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_set
 
 # from .views.api import api
 # from .views.errors import errors
-# from .views.homepage import homepage
-# from .views.login import login
+from .login.views import login
 from .sets.views import sets
 from .users.views import users
+from .homepage.views import homepage
 
 app = Flask(__name__)
 
@@ -70,9 +70,22 @@ mail = Mail(app)
 
 db.create_all()
 
+
+
+
+
 # app.register_blueprint(api)
 # app.register_blueprint(errors)
-# app.register_blueprint(homepage)
-# app.register_blueprint(login)
+app.register_blueprint(homepage)
+app.register_blueprint(login)
 app.register_blueprint(sets)
 app.register_blueprint(users)
+
+
+####################################################################
+# Setting up Login
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)

@@ -6,8 +6,7 @@ from flask_login import current_user, login_required
 from ..models import User, Set, db
 from ..forms import EditUserForm
 
-users = Blueprint('users', __name__)
-
+users = Blueprint('users', __name__, template_folder="templates")
 
 ####################################################################
 # User Routes

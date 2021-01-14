@@ -4,12 +4,12 @@ from flask import Blueprint, render_template, request, url_for, \
 
 from flask_login import login_required, current_user
 
-from ..sets import get_all_verses
+from ..helpers.sets import get_all_verses
 
 from ..models import db, Set
 from ..forms import SetForm
 
-sets = Blueprint('sets', __name__)
+sets = Blueprint('sets', __name__, template_folder="templates")
 
 ####################################################################
 # Set Routes
