@@ -1,4 +1,4 @@
-## MTWord
+# MTWord (Memorize the Word)
 <!-- A little info about your project and/ or overview that explains **what** the project is about. -->
 MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clone but for Bible verses (using the [ESV](https://www.esv.org/))
 
