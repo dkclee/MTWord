@@ -37,9 +37,9 @@ def search():
 
     sets, total = Set.search(term, page, 10)
 
-    next_url = url_for('search', term=term, page=page + 1) \
+    next_url = url_for('homepage.search', term=term, page=page + 1) \
         if total > page * 10 else None
-    prev_url = url_for('search', term=term, page=page - 1) \
+    prev_url = url_for('homepage.search', term=term, page=page - 1) \
         if page > 1 else None
 
     return render_template('search.html', sets=sets, term=term,
