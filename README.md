@@ -4,7 +4,7 @@ MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clo
 
 ## Motivation
 <!-- A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists. -->
-After a conversation with one of my friends, we realized how difficult it is to memorize Bible verses. I wanted to try to build something to aid making Bible verse sets along with providing features to aid memorization.
+After a conversation with one of my friends, we realized how difficult it is to memorize Bible verses. I wanted to try to build something to aid making Bible verse sets along with providing features to aid memorization. Also, when making specific Quizlet sets for many verses, it can be tedious to individually make cards for a passage. This application seeks to address that struggle with already translating longer passages into individual cards in the set.
 
 <!-- ## Build status
 Build status of continus integration i.e. travis, appveyor etc. Ex. - 
