@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 
 from flask_login import LoginManager, login_manager
@@ -20,7 +20,6 @@ from project.models import db, connect_db, User, Set, Verse
 from project.secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_settings
 
 from .api.views import api
-# from .views.errors import errors
 from .login.views import login
 from .sets.views import sets
 from .users.views import users
@@ -75,7 +74,6 @@ db.create_all()
 
 
 app.register_blueprint(api)
-# app.register_blueprint(errors)
 app.register_blueprint(homepage)
 app.register_blueprint(login)
 app.register_blueprint(sets)
@@ -89,3 +87,16 @@ app.register_blueprint(users)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
+####################################################################
+# Error Pages
+
+@app.errorhandler(404)
+def show_404_page(err):
+    return render_template('errors/404.html'), 404
+
+
+@app.errorhandler(401)
+def show_401_page(err):
+    return render_template('errors/401.html'), 401
+
