@@ -22,7 +22,8 @@ Include logo/demo screenshot etc. -->
 
 ## Tech/framework used
 
-<b>Built with</b>
+### Built with
+<b>Backend:</b>
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
     * [Flask-Admin](https://flask-admin.readthedocs.io/en/latest/)
     * [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/latest/)
@@ -31,6 +32,16 @@ Include logo/demo screenshot etc. -->
     * [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
     * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/)
 - [Elasticsearch](https://www.elastic.co/guide/index.html)
+    * Elasticsearch was used to index the sets by their name and description in order to easily search for different sets
+
+<b>Frontend:<b>
+- [jQuery](https://jquery.com/)
+- [Lodash](https://lodash.com/)
+    * Used to debounce API call necessary to get the verse from
+- [Axios](https://github.com/axios/axios)
+    * Used to make AJAX requests
+
+
 
 
 <!-- ## Features
