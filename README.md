@@ -34,7 +34,7 @@ Include logo/demo screenshot etc. -->
 - [Elasticsearch](https://www.elastic.co/guide/index.html)
     * Elasticsearch was used to index the sets by their name and description in order to easily search for different sets
 
-<b>Frontend:<b>
+<b>Frontend:</b>
 - [jQuery](https://jquery.com/)
 - [Lodash](https://lodash.com/)
     * Used to debounce API call necessary to get the verse from
