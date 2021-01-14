@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 
 from flask_login import login_required, current_user
 
-from ..sets import get_esv_text
+from ..helpers.sets import get_esv_text
 from ..models import db, Set
 
 api = Blueprint('api', __name__)

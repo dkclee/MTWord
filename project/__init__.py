@@ -19,7 +19,7 @@ from project.models import db, connect_db, User, Set, Verse
 
 from project.secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, mail_settings
 
-# from .views.api import api
+from .api.views import api
 # from .views.errors import errors
 from .login.views import login
 from .sets.views import sets
@@ -74,7 +74,7 @@ db.create_all()
 
 
 
-# app.register_blueprint(api)
+app.register_blueprint(api)
 # app.register_blueprint(errors)
 app.register_blueprint(homepage)
 app.register_blueprint(login)
