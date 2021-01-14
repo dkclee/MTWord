@@ -16,7 +16,7 @@ from secrets import token_urlsafe
 
 from urllib.parse import urlparse, urljoin
 
-login = Blueprint('login', __name__)
+login = Blueprint('login', __name__, template_folder="templates")
 
 ####################################################################
 # Login/Registration Routes
@@ -64,7 +64,7 @@ def handle_registration():
         flash('Sucessfully logged in!', "success")
 
         # on successful login, redirect to user detail page
-        return redirect(url_for("index"))
+        return redirect(url_for("homepage.index"))
     else:
         return render_template("login_register/register.html", form=form)
 
@@ -74,7 +74,7 @@ def handle_login():
     """ Shows the login form or handles logging the user in """
 
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        return redirect(url_for("homepage.index"))
 
     form = LoginForm()
 
@@ -102,7 +102,7 @@ def handle_login():
         if not is_safe_url(next):
             return abort(400)
 
-        return redirect(next or url_for('index'))
+        return redirect(next or url_for('homepage.index'))
 
     return render_template('login_register/login.html', form=form)
 
@@ -115,7 +115,7 @@ def logout():
 
     flash('Sucessfully logged out!', "success")
 
-    return redirect(url_for("index"))
+    return redirect(url_for("homepage.index"))
 
 
 ####################################################################

@@ -44,6 +44,8 @@ app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
 
 debug = DebugToolbarExtension(app)
 
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+
 connect_db(app)
 
 Bootstrap(app)

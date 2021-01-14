@@ -5,11 +5,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href="{{ url_for('show_set', set_id=set.id)}}">{{ set.name }}</a>
+                            <a href="{{ url_for('sets.show_set', set_id=set.id)}}">{{ set.name }}</a>
                         </h5>
                         <h6 class="card-subtitle mb-2 text-muted">
                             Made by 
-                            <a href="{{ url_for('show_user_profile', user_id=set.user_id)}}">
+                            <a href="{{ url_for('users.show_user_profile', user_id=set.user_id)}}">
                                 {{ set.user.full_name}}
                             </a>
                         </h6>
@@ -28,7 +28,7 @@
             <h3>Looks like you don't have any favorited sets yet. 🙁</h3>
             <p class="lead">
                 Let's find some sets to favorite 
-                <a href="{{url_for('explore')}}">
+                <a href="{{url_for('homepage.explore')}}">
                     here
                 </a>
                 !
@@ -39,7 +39,7 @@
     </div>
 {% elif user == current_user %}
     <div class="container my-4">
-        <h3>Looks like we don't have any sets for you yet, let's create one <a href="{{ url_for('create_new_set') }}">here</a>!</h3>
+        <h3>Looks like we don't have any sets for you yet, let's create one <a href="{{ url_for('sets.create_new_set') }}">here</a>!</h3>
     </div>
 {% elif term %}
     <div class="container my-4">

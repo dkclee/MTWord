@@ -70,7 +70,7 @@
     <p class="lead m-0"><i>Description: </i>{{ set.description }}</p>
     <p class="lead m-0">
         <b>Made by: </b>
-        <a href="{{ url_for('show_user_profile', user_id=set.user_id)}}">
+        <a href="{{ url_for('users.show_user_profile', user_id=set.user_id)}}">
             {{ set.user.full_name }}
         </a>
     </p>
@@ -144,7 +144,7 @@
         
             {% if set.user_id == current_user.id %}
                 <div class="col">
-                    <a class="btn btn-block btn-outline-info" href="{{ url_for('edit_set', set_id=set.id)}}">
+                    <a class="btn btn-block btn-outline-info" href="{{ url_for('sets.edit_set', set_id=set.id)}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -183,7 +183,7 @@
             {% endif %}
         {% else %}
         <div class="col">
-            <a href="{{ url_for('handle_login') }}?next=/sets/{{set.id}}">Log In</a> to be able to favorite or copy this set!
+            <a href="{{ url_for('login.handle_login') }}?next=/sets/{{set.id}}">Log In</a> to be able to favorite or copy this set!
         </div>
         {% endif %}
 

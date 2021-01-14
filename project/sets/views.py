@@ -56,7 +56,7 @@ def create_new_set():
 
         flash("Created new set!", "success")
 
-        return redirect(url_for("show_set", set_id=new_set.id))
+        return redirect(url_for("sets.show_set", set_id=new_set.id))
 
     return render_template("sets/add_edit_set.html",
                            form=form,
@@ -104,7 +104,7 @@ def edit_set(set_id):
 
         flash("Updated your set!", "info")
 
-        return redirect(url_for("show_set", set_id=set_id))
+        return redirect(url_for("sets.show_set", set_id=set_id))
 
     form = SetForm(obj=current_set)
     return render_template("sets/add_edit_set.html",
@@ -158,7 +158,7 @@ def copy_set(set_id):
 
         flash("Copied the set!", "info")
 
-        return redirect(url_for("show_set", set_id=copied_set.id))
+        return redirect(url_for("sets.show_set", set_id=copied_set.id))
 
     form = SetForm(obj=current_set)
     return render_template("sets/add_edit_set.html",
@@ -218,7 +218,7 @@ def delete_set(set_id):
 
         flash("Your set has been successfully deleted", "success")
 
-        return redirect(url_for("index"))
+        return redirect(url_for("homepage.index"))
 
     flash("You cannot delete someone else's set!", "warning")
     return redirect(request.referrer)

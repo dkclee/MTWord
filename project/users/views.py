@@ -79,7 +79,7 @@ def edit_user_profile(user_id):
         db.session.commit()
 
         flash("Successfully edited your information!", "success")
-        return redirect(url_for("show_user_profile", user_id=current_user.id))
+        return redirect(url_for("users.show_user_profile", user_id=current_user.id))
 
     form = EditUserForm(obj=current_user)
 
