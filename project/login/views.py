@@ -2,7 +2,8 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, \
     request, abort
 
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, \
+    login_manager
 
 from flask_mail import Message
 

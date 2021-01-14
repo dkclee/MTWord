@@ -22,13 +22,13 @@
             {% for num in range(1, num_pages + 1) %}
                 {% if num == page %}
                 <li class="page-item active">
-                    <a class="page-link" href="{{ url_for('search', term=term, page=num) }}">
+                    <a class="page-link" href="{{ url_for('homepage.search', term=term, page=num) }}">
                     {{ num }}
                     </a>
                 </li>
                 {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('search', term=term, page=num) }}">
+                    <a class="page-link" href="{{ url_for('homepage.search', term=term, page=num) }}">
                     {{ num }}
                     </a>
                 </li>
