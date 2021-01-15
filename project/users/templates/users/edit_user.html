@@ -39,7 +39,8 @@
                 form_type="horizontal") }}
 
                 
-                <button class="btn btn-info" type="submit">Edit user info!</button>
+                <a class="my-4 btn btn-outline-danger" href="{{url_for('users.show_user_profile', user_id=current_user.id)}}">Cancel</a>
+                <button class="my-4 btn btn-info" type="submit">Edit user info!</button>
 
             </form>
         </div>
