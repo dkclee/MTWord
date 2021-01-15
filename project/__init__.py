@@ -9,8 +9,6 @@ from flask_admin import Admin
 
 from project.admin import MyAdminIndexView, MTWordModelView
 
-from flask_mail import Mail
-
 from flask_bootstrap import Bootstrap
 
 from elasticsearch import Elasticsearch
@@ -21,7 +19,7 @@ from project.secret import RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY,\
     mail_settings
 
 from .api.views import api
-from .login.views import login
+from .login.views import login, connect_mail
 from .sets.views import sets
 from .users.views import users
 from .homepage.views import homepage
@@ -68,7 +66,7 @@ admin.add_view(MTWordModelView(Set, db.session))
 admin.add_view(MTWordModelView(Verse, db.session))
 
 app.config.update(mail_settings)
-mail = Mail(app)
+connect_mail(app)
 
 db.create_all()
 

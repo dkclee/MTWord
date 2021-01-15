@@ -4,9 +4,8 @@ from flask import Blueprint, render_template, flash, redirect, url_for, \
 
 from flask_login import login_user, logout_user, current_user
 
-from flask_mail import Message
+from flask_mail import Message, Mail
 
-# from .. import mail
 from ..forms import RegisterForm, LoginForm, RequestResetPasswordForm, \
     ResetPasswordForm
 from ..models import db, User
@@ -16,6 +15,8 @@ from secrets import token_urlsafe
 from urllib.parse import urlparse, urljoin
 
 login = Blueprint('login', __name__, template_folder="templates")
+
+mail = Mail()
 
 ####################################################################
 # Login/Registration Routes
@@ -120,67 +121,67 @@ def logout():
 ####################################################################
 # Reset Password Routes
 
-# @login.route("/reset/pw", methods=["GET", "POST"])
-# def request_reset_pw():
+@login.route("/reset/pw", methods=["GET", "POST"])
+def request_reset_pw():
 
-#     form = RequestResetPasswordForm()
-#     email = form.email.data
+    form = RequestResetPasswordForm()
+    email = form.email.data
 
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(email=email).first()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=email).first()
 
-#         if not user:
-#             form.email.errors = ["No user found with this email"]
-#             return render_template("request_reset_pw.html", form=form)
+        if not user:
+            form.email.errors = ["No user found with this email"]
+            return render_template("request_reset_pw.html", form=form)
 
-#         token = token_urlsafe(16)
+        token = token_urlsafe(16)
 
-#         user.password_reset_token = token
+        user.password_reset_token = token
 
-#         db.session.commit()
+        db.session.commit()
 
-#         msg = Message("Your password token",
-#                       recipients=[email])
-#         msg.html = f"""<p>
-#                             Hello! Your username is {user.username}
-#                             <hr>
-#                             <a href="http://localhost:5000/reset/pw/{token}">
-#                                 Click here to change your password
-#                             </a>
-#                        </p>"""
+        msg = Message("Your password token",
+                      recipients=[email])
+        msg.html = f"""<p>
+                            Hello! Your username is {user.username}
+                            <hr>
+                            <a href="http://localhost:5000/reset/pw/{token}">
+                                Click here to change your password
+                            </a>
+                       </p>"""
 
-#         mail.send(msg)
+        mail.send(msg)
 
-#         flash("Email has been sent!")
+        flash("Email has been sent!")
 
-#         return redirect("/")
+        return redirect("/")
 
-#     return render_template("login_register/request_reset_pw.html", form=form)
+    return render_template("login_register/request_reset_pw.html", form=form)
 
 
-# @login.route("/reset/pw/<token>", methods=["GET", "POST"])
-# def reset_pw(token):
+@login.route("/reset/pw/<token>", methods=["GET", "POST"])
+def reset_pw(token):
 
-#     form = ResetPasswordForm()
-#     user = User.query.filter_by(password_reset_token=token).first()
+    form = ResetPasswordForm()
+    user = User.query.filter_by(password_reset_token=token).first()
 
-#     if not user:
-#         abort(404)
+    if not user:
+        abort(404)
 
-#     if form.validate_on_submit():
-#         password = form.password.data
+    if form.validate_on_submit():
+        password = form.password.data
 
-#         user.update_password(password)
+        user.update_password(password)
 
-#         user.password_reset_token = None
+        user.password_reset_token = None
 
-#         db.session.commit()
+        db.session.commit()
 
-#         flash("Your password has been updated!", "success")
+        flash("Your password has been updated!", "success")
 
-#         return redirect(url_for("handle_login"))
+        return redirect(url_for("handle_login"))
 
-#     return render_template("login_register/reset_pw.html", form=form)
+    return render_template("login_register/reset_pw.html", form=form)
 
 
 ####################################################################
@@ -199,3 +200,9 @@ def is_safe_url(target):
     return test_url.scheme in ('http', 'https') and \
         ref_url.netloc == test_url.netloc and \
         'delete' not in ref_url.path
+
+
+def connect_mail(app):
+    """ Connect the mail instance to the app """
+
+    mail.init_app(app)
