@@ -1,6 +1,6 @@
 # MTWord (Memorize the Word)
 <!-- A little info about your project and/ or overview that explains **what** the project is about. -->
-MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clone but for Bible verses (using the [ESV](https://www.esv.org/))
+MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clone but for Bible verses (using the [ESV](https://www.esv.org/): English Standard Version)
 
 ## Motivation
 <!-- A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists. -->
