@@ -1,10 +1,16 @@
 # MTWord (Memorize the Word)
 <!-- A little info about your project and/ or overview that explains **what** the project is about. -->
-MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clone but for Bible verses (using the [ESV](https://www.esv.org/) [English Standard Version])
+MTWord stands for Memorize the Word and is a [Quizlet](https://quizlet.com/) clone 
+but for Bible verses (using the [ESV](https://www.esv.org/) [English Standard Version])
 
 ## Motivation
 <!-- A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists. -->
-After a conversation with one of my friends, we realized how difficult it is to memorize Bible verses. I wanted to try to build something to aid making Bible verse sets along with providing features to aid memorization. Also, when making specific Quizlet sets for many verses, it can be tedious to individually make cards for a passage. This application seeks to address that struggle with already translating longer passages into individual cards in the set.
+After a conversation with one of my friends, we realized how difficult 
+it is to memorize Bible verses. I wanted to try to build something to aid 
+making Bible verse sets and memorizing different verses. When making 
+specific Quizlet sets for many verses, it can be tedious to individually 
+make cards for a passage. This application seeks to address that struggle 
+with allowing user to easily create many cards from one long passage reference.
 
 <!-- ## Build status
 Build status of continus integration i.e. travis, appveyor etc. Ex. - 
