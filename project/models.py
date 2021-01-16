@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 
 from flask_login import UserMixin
 
-from search import add_to_index, remove_from_index, query_index
+from project.search import add_to_index, remove_from_index, query_index
 
 db = SQLAlchemy()
 
@@ -87,7 +87,7 @@ class User(UserMixin, db.Model):
                                     secondary='favorites',)
 
     def __repr__(self):
-        return f"<User {self.first_name} {self.last_name}>"
+        return f"<User {self.full_name}>"
 
     def update_password(self, pwd):
         """ Update the user's password """

@@ -8,8 +8,6 @@
 import os
 from unittest import TestCase
 
-from flask_bcrypt import Bcrypt
-
 from ..models import db, User, Set, Verse
 
 # BEFORE we import our app, set an environmental variable
@@ -43,14 +41,12 @@ class SetModelTestCase(TestCase):
         Set.query.delete()
         Verse.query.delete()
 
-        HASHED_PASSWORD1 = bcrypt.generate_password_hash("pwd1").decode('utf8')
-
         u1 = User(
             first_name="fn1",
             last_name="ln1",
             email="test1@test.com",
             username="testuser1",
-            password=HASHED_PASSWORD1
+            password="HASHED_PASSWORD1"
         )
 
         db.session.add(u1)
