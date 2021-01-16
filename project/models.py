@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 
 from flask_login import UserMixin
 
-from project.search import add_to_index, remove_from_index, query_index
+from search import add_to_index, remove_from_index, query_index
 
 db = SQLAlchemy()
 
