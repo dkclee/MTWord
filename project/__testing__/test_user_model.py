@@ -194,10 +194,11 @@ class UserModelTestCase(TestCase):
     def test_authenticate_success(self):
         """ Test authenticating a user with valid credentials """
         user = User.register(
+            first_name="fn_new",
+            last_name="ln_new",
             username="new_user",
             email="new_email@email.com",
-            password="password",
-            image_url="http://google.com",
+            password="password"
         )
         db.session.commit()
 
@@ -208,13 +209,14 @@ class UserModelTestCase(TestCase):
         )
 
         self.assertTrue(found_user)
+        self.assertEqual(found_user.first_name, "fn_new")
+        self.assertEqual(found_user.last_name, "ln_new")
         self.assertEqual(found_user.username, "new_user")
         self.assertEqual(found_user.email, "new_email@email.com")
-        self.assertEqual(found_user.image_url, "http://google.com")
 
     def test_authenticate_failure(self):
         """ Test authenticating a user with invalid credentials
-        
+
         invalid when username doesn't exist or password incorrect for user
         """
         user = User.register(
