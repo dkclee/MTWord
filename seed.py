@@ -1,4 +1,4 @@
-from models import db, User, Set, Verse
+from project.models import db, User, Set, Verse
 
 from flask_bcrypt import Bcrypt
 
