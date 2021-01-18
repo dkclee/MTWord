@@ -1,8 +1,11 @@
-from project.secret import API_KEY, API_URL
+import os
 
 from project.models import db, Verse
 
 import requests
+
+API_KEY = os.environ.get('API_KEY')
+API_KEY = os.environ.get('API_URL')
 
 # TODO: If you get a list of verses, convert them to individual instances
 
