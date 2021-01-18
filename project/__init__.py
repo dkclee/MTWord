@@ -12,6 +12,7 @@ from project.admin import MyAdminIndexView, MTWordModelView
 from flask_bootstrap import Bootstrap
 
 from elasticsearch import Elasticsearch
+from urlparse import urlparse
 
 from project.models import db, connect_db, User, Set, Verse
 
@@ -35,8 +36,12 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6
 
 
 app.config['ELASTICSEARCH_URL'] = os.environ.get('ELASTICSEARCH_URL')
-app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
-    if app.config['ELASTICSEARCH_URL'] else None
+url = urlparse(os.environ.get('ELASTICSEARCH_URL'))
+app.elasticsearch = Elasticsearch(
+    [app.config['ELASTICSEARCH_URL']],
+    http_auth=(url.username, url.password),
+    scheme=url.scheme,
+    port=url.port) if app.config['ELASTICSEARCH_URL'] else None    
 
 debug = DebugToolbarExtension(app)
 
