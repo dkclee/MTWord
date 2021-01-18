@@ -4,7 +4,6 @@ from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt()
 
-
 db.drop_all()
 db.create_all()
 
@@ -47,7 +46,8 @@ new_set = Set(
 db.session.add(new_set)
 db.session.commit()
 
-new_set.verses = [verse1, verse2]
+new_set.verses.append(verse1)
+new_set.verses.append(verse2)
 db.session.commit()
 
 Set.reindex()

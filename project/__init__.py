@@ -26,12 +26,12 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///bible_memorization'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_ECHO'] = False
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 
-app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RECAPTCHA_PUBLIC_KEY', "it's a secret")
-app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "it's a secret")
+app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RECAPTCHA_PUBLIC_KEY', "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J")
+app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu")
 
 
 app.config['ELASTICSEARCH_URL'] = os.environ.get('ELASTICSEARCH_URL')
