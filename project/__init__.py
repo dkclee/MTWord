@@ -12,7 +12,7 @@ from project.admin import MyAdminIndexView, MTWordModelView
 from flask_bootstrap import Bootstrap
 
 from elasticsearch import Elasticsearch
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from project.models import db, connect_db, User, Set, Verse
 
