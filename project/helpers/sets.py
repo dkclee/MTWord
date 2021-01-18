@@ -5,7 +5,7 @@ from project.models import db, Verse
 import requests
 
 API_KEY = os.environ.get('API_KEY')
-API_KEY = os.environ.get('API_URL')
+API_URL = os.environ.get('API_URL')
 
 # TODO: If you get a list of verses, convert them to individual instances
 
