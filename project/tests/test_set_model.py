@@ -2,7 +2,7 @@
 
 # run these tests like:
 #
-#  FLASK_ENV=production python -m unittest test_set_model.py
+#  FLASK_ENV=production python3 -m unittest test_set_model.py
 
 
 import os
@@ -21,14 +21,15 @@ os.environ['DATABASE_URL'] = "postgresql:///bible_memorization_test"
 
 from .. import app
 
+app.config['TESTING'] = True
+app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
+
 # Create our tables (we do this here, so we only create the tables
 # once for all tests --- in each test, we'll delete the data
 # and create fresh new clean test data
 
 db.drop_all()
 db.create_all()
-
-bcrypt = Bcrypt()
 
 
 class SetModelTestCase(TestCase):
@@ -69,16 +70,21 @@ class SetModelTestCase(TestCase):
         set1 = Set(
             name="testset1",
             description="description1",
+            user_id=u1.id,
+            created_at=None,
         )
 
-        u1.sets.append(set1)
+        db.session.add(set1)
+        db.session.commit()
 
+        u1.sets.append(set1)
         db.session.commit()
 
         # Set2 that is favorited by the user
         set2 = Set(
             name="testset2",
             description="description2",
+            user_id=u1.id,
         )
 
         u1.sets.append(set2)
@@ -113,7 +119,7 @@ class SetModelTestCase(TestCase):
             {self.user.last_name}>")
 
     def test_set_relationship_with_user(self):
-        """ Test that the relationship between set and user is
+        """ Test that the relationship between set and user is \
             correctly established
         """
 
