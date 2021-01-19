@@ -36,7 +36,7 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6
 
 bonsai = None
 
-if app.config.get('FLASK_ENV', None) == 'production':
+if os.environ.get('FLASK_ENV', None) == 'production':
     # Parse the auth and host from env:
     bonsai = os.environ['ELASTICSEARCH_URL']
     auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')

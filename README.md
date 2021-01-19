@@ -48,10 +48,29 @@ Include logo/demo screenshot etc. -->
     * Used to make AJAX requests
 
 
+## Features
+1. Auto-populate and Auto-correct implemented through using the ESV API
+![Auto-populate and Auto-correct demo](demo/autopop.gif)
 
 
-<!-- ## Features
-What makes your project stand out?
+2. 
+
+## How to use?
+In order to host the project locally, follow these steps
+```code
+git clone https://github.com/d-lee84/MTWord.git
+cd MTWord
+pip3 install -r requirements.txt
+flask run
+```
+Some features may not work locally because of API keys that are not available.
+
+## Future directions
+- Tests: Definitely want to make sure that all of my code is tested. Currently there is a problem running
+    the tests because of the application context problem. 
+- Helpful memorization features: Card matching, text matching, quiz features for the memorization aspect
+
+<!-- 
 
 ## Code Example
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
@@ -65,9 +84,6 @@ Depending on the size of the project, if it is small and simple enough the refer
 
 ## Tests
 Describe and show how to run the tests with code examples.
-
-## How to use?
-If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
 
 ## Contribute
 
