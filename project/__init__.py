@@ -37,11 +37,11 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6
 
 app.config['ELASTICSEARCH_URL'] = os.environ.get('ELASTICSEARCH_URL')
 url = urlparse(os.environ.get('ELASTICSEARCH_URL'))
-app.elasticsearch = Elasticsearch(
-    [app.config['ELASTICSEARCH_URL']],
-    http_auth=(url.username, url.password),
-    scheme=url.scheme,
-    port=url.port) if app.config['ELASTICSEARCH_URL'] else None    
+app.elasticsearch = Elasticsearch([url.hostname],
+                                  http_auth=(url.username, url.password),
+                                  scheme=url.scheme,
+                                  port=url.port) \
+    if app.config['ELASTICSEARCH_URL'] else None
 
 debug = DebugToolbarExtension(app)
 
