@@ -50,21 +50,18 @@ Include logo/demo screenshot etc. -->
 
 ## Features
 1. Auto-populate and Auto-correct implemented through using the ESV API
-<br/>
 ![Auto-populate and Auto-correct demo](demo/autopop.gif)
 
 <br/>
 <br/>
 
 2. Searching through set names and set descriptions through Elasticsearch
-<br/>
 ![Searching demo](demo/search.gif)
 
 <br/>
 <br/>
 
 3. Admin page accessible for the admin users to edit any of the users, sets, verses models
-<br/>
 ![Admin demo](demo/admin.gif)
 
 ## How to use?
