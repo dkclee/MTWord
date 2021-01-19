@@ -53,7 +53,12 @@ Include logo/demo screenshot etc. -->
 ![Auto-populate and Auto-correct demo](demo/autopop.gif)
 
 
-2. 
+2. Searching through set names and set descriptions through Elasticsearch
+![Searching demo](demo/search.gif)
+
+
+3. Admin page accessible for the admin users to edit any of the users, sets, verses models
+![Admin demo](demo/admin.gif)
 
 ## How to use?
 In order to host the project locally, follow these steps
