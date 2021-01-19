@@ -34,8 +34,6 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RECAPTCHA_PUBLIC_KEY', "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J")
 app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu")
 
-
-
 # Parse the auth and host from env:
 bonsai = os.environ['ELASTICSEARCH_URL']
 auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
