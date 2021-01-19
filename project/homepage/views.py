@@ -35,6 +35,8 @@ def search():
     term = request.args.get('term')
     page = request.args.get('page', 1, type=int)
 
+    Set.reindex()
+
     sets, total = Set.search(term, page, 10)
 
     next_url = url_for('homepage.search', term=term, page=page + 1) \
