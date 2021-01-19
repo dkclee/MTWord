@@ -5,7 +5,10 @@ from project.models import db, Verse
 import requests
 
 API_KEY = os.environ.get('API_KEY')
-API_URL = os.environ.get('API_URL')
+if API_KEY is None:
+    from .secret import API_KEY2
+    API_KEY = API_KEY2
+API_URL = os.environ.get('API_URL', "https://api.esv.org/v3/passage/text/")
 
 # TODO: If you get a list of verses, convert them to individual instances
 

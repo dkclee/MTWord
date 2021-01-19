@@ -34,20 +34,23 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RECAPTCHA_PUBLIC_KEY', "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J")
 app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu")
 
-# Parse the auth and host from env:
-bonsai = os.environ['ELASTICSEARCH_URL']
-auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
-host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
+bonsai = None
 
-app.config['ELASTICSEARCH_URL'] = bonsai
+if app.config.get('FLASK_ENV', None) == 'production':
+    # Parse the auth and host from env:
+    bonsai = os.environ['ELASTICSEARCH_URL']
+    auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
+    host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
-# Connect to cluster over SSL using auth for best security:
-es_header = [{
- 'host': host,
- 'port': 443,
- 'use_ssl': True,
- 'http_auth': (auth[0], auth[1])
-}]
+    app.config['ELASTICSEARCH_URL'] = bonsai
+
+    # Connect to cluster over SSL using auth for best security:
+    es_header = [{
+    'host': host,
+    'port': 443,
+    'use_ssl': True,
+    'http_auth': (auth[0], auth[1])
+    }]
 
 # Instantiate the new Elasticsearch connection:
 app.elasticsearch = Elasticsearch(es_header) if bonsai else None

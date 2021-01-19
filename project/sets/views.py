@@ -180,7 +180,9 @@ def show_set(set_id):
     headers = ("Reference", "Verse")
     verses = current_set.verses
 
-    is_favorite = current_set in current_user.favorite_sets
+    is_favorite = current_set in current_user.favorite_sets \
+        if current_user.is_authenticated \
+        else False
 
     return render_template("sets/show_set.html",
                            set=current_set,
