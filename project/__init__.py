@@ -1,4 +1,4 @@
-import os
+import os, base64, re, logging
 
 from flask import Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
@@ -35,13 +35,24 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RECAPTCHA_PUBLIC_KEY', "6Le
 app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu")
 
 
-app.config['ELASTICSEARCH_URL'] = os.environ.get('ELASTICSEARCH_URL')
-url = urlparse(os.environ.get('ELASTICSEARCH_URL'))
-app.elasticsearch = Elasticsearch([url.hostname],
-                                  http_auth=(url.username, url.password),
-                                  scheme=url.scheme,
-                                  port=url.port) \
-    if app.config['ELASTICSEARCH_URL'] else None
+
+# Parse the auth and host from env:
+bonsai = os.environ['ELASTICSEARCH_URL']
+auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
+host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
+
+app.config['ELASTICSEARCH_URL'] = bonsai
+
+# Connect to cluster over SSL using auth for best security:
+es_header = [{
+ 'host': host,
+ 'port': 443,
+ 'use_ssl': True,
+ 'http_auth': (auth[0], auth[1])
+}]
+
+# Instantiate the new Elasticsearch connection:
+app.elasticsearch = Elasticsearch(es_header) if bonsai else None
 
 debug = DebugToolbarExtension(app)
 
