@@ -71,9 +71,11 @@ flask run
 Some features may not work locally because of API keys that are not available.
 
 ## Future directions
-- Tests: Definitely want to make sure that all of my code is tested. Currently there is a problem running
-    the tests because of the application context problem. 
-- Helpful memorization features: Card matching, text matching, quiz features for the memorization aspect
+- Tests: Definitely want to make sure that all of my code is tested. 
+    Currently there is a problem running the tests because of an 
+    application context problem. 
+- Helpful memorization features: Card matching, text matching, quiz features f
+    or the memorization aspect
 
 <!-- 
 
