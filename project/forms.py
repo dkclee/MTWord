@@ -11,9 +11,16 @@ class SetForm(FlaskForm):
                        validators=[InputRequired(),
                                    Length(max=50,
                                           message="Name is too long")
-                                   ]
+                                   ],
+                       description="Give a helpful name for the set! Something \
+                           like a Bible plan name or the name of the \
+                                group you're making this for"
                        )
-    description = TextAreaField("Description of the set")
+    description = TextAreaField(
+        "Description of the set",
+        description="Would be helpful to include verses that are in the \
+            set!"
+    )
 
 
 class RegisterForm(FlaskForm):

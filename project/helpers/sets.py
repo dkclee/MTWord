@@ -12,29 +12,49 @@ API_URL = os.environ.get('API_URL', "https://api.esv.org/v3/passage/text/")
 
 # TODO: If you get a list of verses, convert them to individual instances
 
-# def get_all_verses(references):
-#     """ With a list of verse references, get all the verses """
 
-#     for refs in references:
-#         if "-" in refs:
-#             refs = split_verses(refs)
-#         else:
-#             refs = [refs]
+def split_verses(verses):
+    """ With a string of multiple verses, split on verses
 
-#         for ref in refs:
-#             verse = get_esv_text(ref)
+        >>> split_verses("[1] Verse1 [2] Verse2")
+        ["Verse1", "Verse2"]
+    """
 
-#     return False
+    import re
+
+    verses_list = re.split("\[\d+\]", verses)
+    verses_list = [verse.strip() for verse in verses_list if verse.strip()]
+
+    return verses_list
 
 
-# def split_verses(ref):
-#     """ If there are references to multiple verses, split them
-#         "Romans 8:1-3" -> ["Romans 8:1", "Romans 8:2", "Romans 8:3"]
-#     """
+def split_verses_refs(ref):
+    """ If there are references to multiple verses, split them
+        "Romans 8:1-3" -> ["Romans 8:1", "Romans 8:2", "Romans 8:3"]
 
-#     split_refs = ref.split(":")
+        >>> split_verses_refs("Romans 8:1-3")
+        ["Romans 8:1", "Romans 8:2", "Romans 8:3"]
 
-#     ref_arr
+        >>> split_verses_refs("Book 2:4-7")
+        ["Book 2:4", "Book 2:5", "Book 2:6", "Book 2:7"]
+    """
+
+    split_refs = ref.split(":")
+
+    book_and_chapter = split_refs[0]
+
+    verse_refs = split_refs[1].split("-")
+
+    start_verse = int(verse_refs[0])
+    end_verse = int(verse_refs[1])
+
+    full_refs = []
+
+    for i in range(start_verse, end_verse + 1):
+        full_refs.append(f"{book_and_chapter}:{i}")
+
+    return full_refs
+
 
 def get_all_verses(references):
     """ With a list of references, return a list of valid verse instances
@@ -44,7 +64,7 @@ def get_all_verses(references):
 
     for ref in references:
 
-        get_verse_num = "-" in ref
+        get_verse_num = "-" in ref or ":" not in ref
 
         info = get_esv_text(ref, get_verse_num)
 
