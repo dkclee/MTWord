@@ -12,7 +12,7 @@ homepage = Blueprint('homepage', __name__)
 @homepage.route("/")
 def index():
     """ Show the homepage """
-    return render_template("base.html")
+    return render_template("home.html")
 
 
 @homepage.route("/explore")

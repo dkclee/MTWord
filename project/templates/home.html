@@ -1,0 +1,21 @@
+
+
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="../static/home.css">
+{% endblock %}
+
+{% block content %}
+<div class="home-hero">
+    <h1>Memorize the Word (MTWord)</h1>
+    <h4>MTWord is a set creation app to aid in creating Bible verse sets!</h4>
+    {% if current_user.is_authenticated %}
+        <p>Let's make a set! 🛠</p>
+        <a href="{{ url_for('sets.create_new_set') }}" class="btn btn-secondary btn-sm">New set</a>
+    {% else %}
+        <p>Sign up now to create your own set 😊</p>
+        <a href="{{ url_for('login.handle_registration') }}" class="btn btn-secondary btn-sm">Sign up</a>
+    {% endif %}
+</div>
+{% endblock %}

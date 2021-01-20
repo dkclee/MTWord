@@ -10,8 +10,6 @@ if API_KEY is None:
     API_KEY = API_KEY2
 API_URL = os.environ.get('API_URL', "https://api.esv.org/v3/passage/text/")
 
-# TODO: If you get a list of verses, convert them to individual instances
-
 
 def split_verses(verses):
     """ With a string of multiple verses, split on verses
@@ -105,7 +103,10 @@ def get_all_verses(references):
 
 
 def find_or_make_verse(reference, passages):
-    """  """
+    """ Returns a verse instance from the given reference
+        - If a verse cannot be found, a new verse is made
+    """
+    
     verse = Verse.query.filter_by(reference=reference).first()
 
     if not verse:
