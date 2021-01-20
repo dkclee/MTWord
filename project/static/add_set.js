@@ -72,15 +72,12 @@ async function refreshVerseFields(evt) {
   
   $(`#verse-${targetId}`).val(info.passages);
 
-  if ($input.val() !== info.reference) {
+  info.reference = info.reference.replace("–", "-");
+
+  if (reference !== info.reference) {
+    debugger;
     $(`#ref-correct-${targetId}`).html(
       `Did you mean: <a class="correct-ref">${info.reference}</a>`
-    );
-  } else if (!info.reference.includes(":") && info.passage?.includes("Error") !== true){
-    $(`#ref-correct-${targetId}`).html(
-      `<button type="button" class="btn btn-link my-1 modal-button" data-toggle="modal" data-target="#chapterModal">
-        Check me!
-      </button>`
     );
   } else {
     $(`#ref-correct-${targetId}`).empty()
