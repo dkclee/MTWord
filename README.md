@@ -69,6 +69,7 @@ In order to host the project locally, follow these steps
 ```code
 git clone https://github.com/d-lee84/MTWord.git
 cd MTWord
+python3 -m venv venv
 pip3 install -r requirements.txt
 flask run
 ```

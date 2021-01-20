@@ -28,7 +28,7 @@ def split_verses(verses):
     return verses_list
 
 
-def split_verses_refs(ref):
+def split_verses_refs(ref, total=0):
     """ If there are references to multiple verses, split them
         "Romans 8:1-3" -> ["Romans 8:1", "Romans 8:2", "Romans 8:3"]
 
@@ -37,16 +37,25 @@ def split_verses_refs(ref):
 
         >>> split_verses_refs("Book 2:4-7")
         ["Book 2:4", "Book 2:5", "Book 2:6", "Book 2:7"]
+
+        >>> split_verses_refs("Book 3", 5)
+        ["Book 3:1", "Book 3:2", "Book 3:3", "Book 3:4", "Book 3:5"]
     """
+    start_verse = 1
 
-    split_refs = ref.split(":")
+    if ":" in ref:
+        split_refs = ref.split(":")
 
-    book_and_chapter = split_refs[0]
+        book_and_chapter = split_refs[0]
 
-    verse_refs = split_refs[1].split("-")
+        verse_refs = split_refs[1].split("-")
 
-    start_verse = int(verse_refs[0])
-    end_verse = int(verse_refs[1])
+        start_verse = int(verse_refs[0])
+        end_verse = int(verse_refs[1])
+    else:
+        book_and_chapter = ref
+
+        end_verse = total
 
     full_refs = []
 
@@ -74,19 +83,40 @@ def get_all_verses(references):
         if passages == 'Error: Passage not found':
             continue
 
-        verse = Verse.query.filter_by(reference=reference).first()
+        if get_verse_num:
+            verse_list = split_verses(passages)
 
-        if not verse:
-            verse = Verse(
-                reference=reference,
-                verse=passages
-            )
-            db.session.add(verse)
-            db.session.commit()
+            verse_ref_list = split_verses_refs(reference,
+                                               len(verse_list))
+
+            for i in range(len(verse_list)):
+                verse = find_or_make_verse(
+                    verse_ref_list[i], verse_list[i])
+                verses.append(verse)
+
+            continue
+
+        verse = find_or_make_verse(
+            passages, reference)
 
         verses.append(verse)
 
     return verses
+
+
+def find_or_make_verse(reference, passages):
+    """  """
+    verse = Verse.query.filter_by(reference=reference).first()
+
+    if not verse:
+        verse = Verse(
+            reference=reference,
+            verse=passages
+        )
+        db.session.add(verse)
+        db.session.commit()
+
+    return verse
 
 
 def get_esv_text(passage, get_verse_num=True):
