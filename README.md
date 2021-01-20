@@ -82,6 +82,7 @@ Some features may not work locally because of API keys that are not available.
 - Helpful memorization features: Card matching, text matching, quiz features for the memorization aspect
 - Incorporating OAuth using [Flask-Dance](https://flask-dance.readthedocs.io/en/latest/)
 - Ordering the sets by different factors such as name, created date, number of cards, etc...
+- Reset password feature using JWTs [Flask-JWT-extended](https://flask-jwt-extended.readthedocs.io/en/stable/)
 
 <!-- 
 
