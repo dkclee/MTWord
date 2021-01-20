@@ -83,6 +83,7 @@ Some features may not work locally because of API keys that are not available.
 - Incorporating OAuth using [Flask-Dance](https://flask-dance.readthedocs.io/en/latest/)
 - Ordering the sets by different factors such as name, created date, number of cards, etc...
 - Reset password feature using JWTs [Flask-JWT-extended](https://flask-jwt-extended.readthedocs.io/en/stable/)
+- Add a feature for someone to demo without loggin in
 
 <!-- 
 
