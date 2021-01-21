@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, current_app
 from ..models import Set
 
 homepage = Blueprint('homepage', __name__)
@@ -31,13 +31,22 @@ def explore():
 def search():
     """ Show the sets matching the searched terms
         - Show 10 and paginate
+        - If elasticsearch is not available, do a ILIKE
+          search through the database
     """
     term = request.args.get('term')
     page = request.args.get('page', 1, type=int)
 
-    Set.reindex()
+    if current_app.elasticsearch:
+        Set.reindex()
 
-    sets, total = Set.search(term, page, 10)
+        sets, total = Set.search(term, page, 10)
+    else:
+        query_term = f"%{term}%"
+        sets = Set.query.filter(
+            Set.name.ilike(query_term) | Set.description.ilike(query_term)
+        ).all()
+        total = len(sets)
 
     next_url = url_for('homepage.search', term=term, page=page + 1) \
         if total > page * 10 else None
