@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Sorry, you are not authorized!</h1>
-  <iframe src="https://giphy.com/embed/mXuPwyxWaT6hPoPnfW" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<div class="container text-center my-5">
+  <h1>You are not authorized!</h1>
+  <p class="lead"><a href="/">Click here</a> to go back to the homepage</p>
+  <iframe 
+    src="https://giphy.com/embed/mXuPwyxWaT6hPoPnfW" 
+    width="480" 
+    height="480" 
+    frameBorder="0" 
+    class="giphy-embed" 
+    allowFullScreen>
+  </iframe>
+</div>
+  
+  
 {% endblock %}

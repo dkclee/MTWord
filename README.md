@@ -64,6 +64,18 @@ Include logo/demo screenshot etc. -->
 3. Admin page accessible for the admin users to edit any of the users, sets, verses models
 ![Admin demo](demo/admin.gif)
 
+<br/>
+<br/>
+
+## Profiling the performance improvements of using Elasticsearch
+In order to measure the amount of time between searching through the database to find 
+our sets, the [Python Profiler](https://docs.python.org/2/library/profile.html) 
+package was used in addition to [Faker](https://faker.readthedocs.io/en/stable/index.html)
+package in order to generate large amounts of set data. 
+
+Here below are the results of making different amount of queries across different number of sets in the database. The results can be averaged out in order to give a representation of
+the improvements made through implementing Elasticsearch
+
 ## How to use?
 In order to host the project locally, follow these steps
 ```code
