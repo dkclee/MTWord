@@ -52,8 +52,12 @@ if os.environ.get('FLASK_ENV', None) == 'production':
     'http_auth': (auth[0], auth[1])
     }]
 
-# Instantiate the new Elasticsearch connection:
-app.elasticsearch = Elasticsearch(es_header) if bonsai else None
+    # Instantiate the new Elasticsearch connection:
+    app.elasticsearch = Elasticsearch(es_header) if bonsai else None
+else:
+    app.config['ELASTICSEARCH_URL'] = "http://localhost:9200"
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
+        if app.config['ELASTICSEARCH_URL'] else None
 
 debug = DebugToolbarExtension(app)
 

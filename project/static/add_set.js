@@ -75,7 +75,6 @@ async function refreshVerseFields(evt) {
   info.reference = info.reference.replace("–", "-");
 
   if (reference !== info.reference) {
-    debugger;
     $(`#ref-correct-${targetId}`).html(
       `Did you mean: <a class="correct-ref">${info.reference}</a>`
     );

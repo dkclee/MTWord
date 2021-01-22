@@ -95,7 +95,7 @@ def get_all_verses(references):
             continue
 
         verse = find_or_make_verse(
-            passages, reference)
+            reference, passages)
 
         verses.append(verse)
 
