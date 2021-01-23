@@ -1,4 +1,4 @@
-import os, base64, re, logging
+import os, re
 
 from flask import Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
@@ -12,7 +12,6 @@ from project.admin import MyAdminIndexView, MTWordModelView
 from flask_bootstrap import Bootstrap
 
 from elasticsearch import Elasticsearch
-from urllib.parse import urlparse
 
 from project.models import db, connect_db, User, Set, Verse
 
@@ -31,8 +30,12 @@ app.config['SQLALCHEMY_ECHO'] = False
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 
-app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RECAPTCHA_PUBLIC_KEY', "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J")
-app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RECAPTCHA_PRIVATE_KEY', "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu")
+app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get(
+    'RECAPTCHA_PUBLIC_KEY',
+    "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J")
+app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get(
+    'RECAPTCHA_PRIVATE_KEY',
+    "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu")
 
 bonsai = None
 
@@ -46,10 +49,10 @@ if os.environ.get('FLASK_ENV', None) == 'production':
 
     # Connect to cluster over SSL using auth for best security:
     es_header = [{
-    'host': host,
-    'port': 443,
-    'use_ssl': True,
-    'http_auth': (auth[0], auth[1])
+        'host': host,
+        'port': 443,
+        'use_ssl': True,
+        'http_auth': (auth[0], auth[1])
     }]
 
     # Instantiate the new Elasticsearch connection:

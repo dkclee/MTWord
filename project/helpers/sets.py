@@ -46,7 +46,7 @@ def split_verses_refs(ref, total=0):
 
         book_and_chapter = split_refs[0]
 
-        verse_refs = split_refs[1].split("-")
+        verse_refs = split_refs[1].split("–")
 
         start_verse = int(verse_refs[0])
         end_verse = int(verse_refs[1])
