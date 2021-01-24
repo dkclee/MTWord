@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container my-4">
+        <!-- <h1>Number of sets made: {#sets#}</h1> -->
+        <h1>Number of queries made: {{queries}}</h1>
+        <hr>
+        <h3 class="my-4">With database methods</h3>
+        <pre class="my-4" style="height: 300px;">{{db}}</pre>
+        <hr>
+        <h3 class="my-4">Elasticsearch method</h3>
+        <pre class="my-4" style="height: 300px;">{{es}}</pre>
+    </div>
+
+{% endblock %}

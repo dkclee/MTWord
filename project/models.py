@@ -82,9 +82,11 @@ class User(UserMixin, db.Model):
 
     # Relationship with Sets and favorites
     sets = db.relationship('Set',
-                           backref='user')
+                           backref='user',
+                           cascade="all, delete",)
     favorite_sets = db.relationship('Set',
-                                    secondary='favorites',)
+                                    secondary='favorites',
+                                    cascade="all, delete",)
 
     def __repr__(self):
         return f"<User {self.full_name}>"
@@ -146,7 +148,8 @@ class Set(SearchableMixin, db.Model):
 
     verses = db.relationship('Verse',
                              secondary='sets_verses',
-                             backref='sets')
+                             backref='sets',
+                             cascade="all, delete")
 
     def __repr__(self):
         return f"<Set {self.name} by {self.user.first_name} \
