@@ -200,6 +200,9 @@ class Verse(db.Model):
     def __repr__(self):
         return f"<Verse {self.reference} {self.verse[:10]}>"
 
+    def serialize(self):
+        return {"reference": self.reference, "verse": self.verse}
+
     @property
     def hashed(self):
         return hash(self.reference)

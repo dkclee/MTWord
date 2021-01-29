@@ -74,7 +74,7 @@ package was used in addition to [Faker](https://faker.readthedocs.io/en/stable/i
 package in order to generate large amounts of set data. 
 
 Here below are the results of making different amount of queries across different number of sets in the database. The results can be averaged out in order to give a representation of
-the improvements made through implementing Elasticsearch
+the improvements made through implementing Elasticsearch. 
 
 ## How to use?
 In order to host the project locally, follow these steps

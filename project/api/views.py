@@ -23,6 +23,21 @@ def lookup_verse():
     return jsonify(info=info)
 
 
+####################################################################
+# API Verse Routes
+
+
+@api.route("/api/sets/<set_id>")
+def lookup_set(set_id):
+    """ Look up the verse with the reference and return JSON """
+
+    current_set = Set.query.get_or_404(set_id)
+
+    cards = [verse.serialize() for verse in current_set.verses]
+
+    return jsonify(cards=cards)
+
+
 @api.route("/api/sets/<int:set_id>/favorite", methods=["POST"])
 @login_required
 def toggle_favorite(set_id):
@@ -42,3 +57,9 @@ def toggle_favorite(set_id):
     db.session.commit()
 
     return jsonify(message=message)
+
+
+
+
+
+

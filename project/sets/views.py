@@ -193,7 +193,13 @@ def show_set(set_id):
 
 @sets.route("/sets/<int:set_id>/cards")
 def show_set_cards(set_id):
-    """ """
+    """ Show the site for cards matching game """
+
+    current_set = Set.query.get_or_404(set_id)
+
+    return render_template(
+        "sets/set_cards.html",
+        set=current_set)
 
 
 @sets.route("/sets/<int:set_id>/practice")

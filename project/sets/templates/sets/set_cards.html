@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/css/set_cards.css">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container justify-content-center my-4 text-center" id="setCardsContainer">
+    <div class="row justify-content-center">
+        <div class="col-9 text-center">
+            <form  autocomplete="off" id="setCardsForm">
+                <h1 class="display-4 my-5">Match the cards!</h1>
+                <input type="hidden" value="{{set.id}}" id="setId">
+                <div>
+                    When the game starts, you will have 30 seconds to correctly
+                    match all the cards on the screen. Good luck!
+                </div>
+                <hr class="my-4">
+                <button class="btn btn-info" type="submit">Let's play!</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid justify-content-center text-center d-none " id="gameBoardContainer">
+    <div class="row">
+        <div class="col-sm-2 py-4 bg-light">
+            Some info about stuff
+        </div>
+        <div class="col-10 text-center py-4 bg-info">
+            <h2 class="m-4">Match the cards!</h2>
+            <div id="gameBoard">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://unpkg.com/lodash"></script>
+<script src="/static/set_cards.js"></script>
+
+{% endblock %}
