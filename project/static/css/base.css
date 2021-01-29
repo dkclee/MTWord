@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    margin-bottom: 90px;
+    margin-bottom: 60px;
+    min-height: 95vh;
 }
 
 .page-footer {
