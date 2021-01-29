@@ -24,6 +24,8 @@ async function startGame(evt) {
   $gameBoardContainer.removeClass("d-none");
 }
 
+/** Function to make the AJAX request when more cards are needed */
+
 async function getNewVerses() {
   let resp = await axios.get(`${BASE_URL}/${SET_ID}`);
   VERSES = resp.data.cards;
@@ -51,13 +53,12 @@ function makeCards() {
     for(let k = j; k < j + 2; k++) {
       let cardData = cardsToMake[k];
       $col.append($(`
-      <input type="checkbox" id="card-${k}" class="matchCard" data-id="${cardData.id}" />
-      <label for="card-${k}" class="m-2">
-      <div class="label-text">
-      ${cardData.text}
-      </div>
-      </label>
-      `));
+        <input type="checkbox" id="card-${k}" class="matchCard" data-id="${cardData.id}" />
+        <label for="card-${k}" class="m-2">
+          <div class="label-text">
+            ${cardData.text}
+          </div>
+        </label>`));
     }
     $row.append($col);
   }
