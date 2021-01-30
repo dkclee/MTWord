@@ -1,0 +1,78 @@
+{% if sets %}
+{% for set in sets %}
+<div class="row justify-content-center my-5">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ url_for('sets.show_set', set_id=set.id)}}">{{ set.name }}</a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Made by
+                    <a href="{{ url_for('users.show_user_profile', user_id=set.user_id)}}">
+                        {{ set.user.full_name}}
+                    </a>
+                </h6>
+                <p class="card-text">{{ set.description }}</p>
+                <a href="{{ url_for('sets.show_set_cards', set_id=set.id)}}" class="card-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-front" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm5 10v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2v5a2 2 0 0 1-2 2H5z" />
+                    </svg>
+                    Cards
+                </a>
+                <a href="#" class="card-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                    </svg>
+                    Practice
+                </a>
+                <a href="#" class="card-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                        <path
+                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path
+                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                    </svg>
+                    Test
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% elif type == 'fav' %}
+<div class="container my-4">
+    {% if user == current_user %}
+    <h3>Looks like you don't have any favorited sets yet. 🙁</h3>
+    <p class="lead">
+        Let's find some sets to favorite
+        <a href="{{url_for('homepage.explore')}}">
+            here
+        </a>
+        !
+    </p>
+    {% else %}
+    <h3>Looks like the user doesn't have any favorited sets yet. 🙁</h3>
+    {% endif %}
+</div>
+{% elif user == current_user %}
+<div class="container my-4">
+    <h3>Looks like we don't have any sets for you yet, let's create one <a
+            href="{{ url_for('sets.create_new_set') }}">here</a>!</h3>
+</div>
+{% elif term %}
+<div class="container my-4">
+    <h3>Looks like we can't find any sets that match that term.</h3>
+</div>
+{% else %}
+<div class="container my-4">
+    <h2>Looks like this user doesn't have any sets yet 🙁</h2>
+</div>
+{% endif %}

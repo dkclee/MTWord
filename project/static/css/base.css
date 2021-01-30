@@ -16,3 +16,7 @@ body {
     line-height: 60px;
     background-color: #f5f5f5;
 }
+
+nav {
+    z-index: 1;
+}

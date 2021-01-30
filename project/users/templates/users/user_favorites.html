@@ -1,4 +1,4 @@
-{% from 'sets/_pagination.html' import pagination %}
+{% from 'shared/_pagination.html' import pagination %}
 
 {% extends 'base.html' %}
 {% block content %}
@@ -8,7 +8,7 @@
         <a href="/users/{{user.id}}">{{ user.full_name }}</a>'s favorite sets!
     </h1>
 
-    {% include 'sets/_sets.html' %}
+    {% include 'shared/_sets.html' %}
 </div>
 
 {{ pagination(set_paginate, "/users/%s/favorites"|format(user.id))}}

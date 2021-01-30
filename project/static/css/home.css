@@ -8,7 +8,7 @@
     top: 0;
     width: 100vw;
     left: 0;
-    z-index: -1;
+    z-index: 0;
     background-image: url("/static/images/bible.jpg");
     background-size: cover;
     background-position: center center;
@@ -21,7 +21,7 @@
 .home-hero .btn {
     text-shadow: none;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 150px;
 }
 
