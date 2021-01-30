@@ -35,14 +35,15 @@ $carousel.on("click", ".card-body", handleFlipCard);
 /** Handles keypress in order to flip the card
  *  or to shuffle through cards
  */
-
 function handleKeyPress(evt) {
-
-  if(evt.code === "ArrowDown" || evt.code === "ArrowUp") {
+  if(evt.code === "ArrowDown" || evt.code === "ArrowUp" || evt.code === "Space") {
+    evt.preventDefault();
     handleFlipCard()
   } else if(evt.code === "ArrowRight") {
+    evt.preventDefault();
     $carousel.carousel('next')
   } else if(evt.code === "ArrowLeft") {
+    evt.preventDefault();
     $carousel.carousel('prev')
   }
 }
