@@ -1,10 +1,9 @@
 "use strict";
 
-
 const BASE_URL = "/api/sets";
-let CHECKED_CARDS = [];
-let SET_ID;
-let VERSES;
+const SET_ID = $("#setId").val();;
+const NUM_CARDS = 6;
+let verses;
 
 const $gameStartForm = $("#setCardsForm");
 const $cardsFormContainer = $("#cardsFormContainer");
@@ -24,8 +23,6 @@ async function startGameWithForm(evt) {
   $cardsFormContainer.hide();
   $gameBoard.empty();
 
-  SET_ID = $("#setId").val();
-
   await getNewVerses();
   makeCards();
 
@@ -39,7 +36,7 @@ async function startGameWithForm(evt) {
 async function startGameFromModal(evt) {
   $gameFinishedModal.modal("hide");
   $gameBoard.empty();
-  await getNewVerses();
+  if(verses.length === 0) await getNewVerses();
   makeCards();
 }
 
@@ -60,6 +57,12 @@ function checkCards(evt) {
     let $card1 = $($checkedCards[0]);
     let $card2 = $($checkedCards[1]);
 
+    // If the cards have the same id (verse and ref match)
+    // - grab the card Id's
+    // - change the labels to checked (turns green)
+    // - disable the checkboxes
+    // - uncheck the checkboxes 
+    // - update progress bar
     if ($card1.data("id") === $card2.data("id")) {
       let card1Id = $card1.attr('id').split("-")[1];
       let card2Id = $card2.attr('id').split("-")[1];
@@ -80,23 +83,22 @@ function checkCards(evt) {
   }
 }
 
-
 $gameBoard.on("change", ".matchCard", checkCards);
 
-/** Function to make the AJAX request when more cards are needed */
 
+/** Function to make the AJAX request when more cards are needed */
 async function getNewVerses() {
   let resp = await axios.get(`${BASE_URL}/${SET_ID}`);
-  VERSES = resp.data.cards;
-  VERSES = _.shuffle(VERSES);
+  verses = resp.data.cards;
+  verses = _.shuffle(verses);
 }
 
 /** Make up to 12 cards on the DOM with up to 6 verses */
 function makeCards() {
   let cardsToMake = [];
 
-  for (let i = 0; i < 6; i++) {
-    let verseObj = VERSES.pop();
+  for (let i = 0; i < NUM_CARDS; i++) {
+    let verseObj = verses.pop();
 
     if (verseObj === undefined) break;
 
@@ -118,5 +120,3 @@ function makeCards() {
         </label>`));
   }
 }
-
-
