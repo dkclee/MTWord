@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="container justify-content-center my-4 text-center" id="setCardsContainer">
+<div class="container justify-content-center my-4 text-center" id="cardsFormContainer">
     <div class="row justify-content-center">
         <div class="col-9 text-center">
             <form  autocomplete="off" id="setCardsForm">
@@ -31,13 +31,36 @@
         </div>
         <div class="col-sm-10 text-center py-4 bg-info">
             <h2 class="m-4 display-4">Match the cards!</h2>
-            <div id="gameBoard">
-                
+            <div class="d-flex flex-wrap justify-content-center" id="gameBoard">
             </div>
         </div>
     </div>
 </div>
 
+
+
+
+
+<div class="modal fade" id="gameFinishedModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="gameFinishedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gameFinishedModalLabel">Congrats, You did it!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            You can choose to play the game again or return back to the set!
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="playAgainBtn" class="btn btn-primary">Play again!</button>
+          <a href="{{url_for('sets.show_set', set_id=set.id)}}" class="btn btn-outline-success">Return to the set</a>
+          <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
 

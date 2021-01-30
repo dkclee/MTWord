@@ -2,27 +2,86 @@
 
 
 const BASE_URL = "/api/sets";
+let CHECKED_CARDS = [];
 let SET_ID;
 let VERSES;
 
 const $gameStartForm = $("#setCardsForm");
-const $setCardsContainer = $("#setCardsContainer");
+const $cardsFormContainer = $("#cardsFormContainer");
+
 const $gameBoardContainer = $("#gameBoardContainer");
 const $gameBoard = $("#gameBoard");
+const $gameFinishedModal = $("#gameFinishedModal");
+const $playAgainBtn = $("#playAgainBtn");
 
 
-async function startGame(evt) {
+/** Game controller
+ *  - Called when the form is submitted to start the game
+ *    only called once in the beginning
+ */
+async function startGameWithForm(evt) {
   evt.preventDefault();
-  $setCardsContainer.hide();
+  $cardsFormContainer.hide();
+  $gameBoard.empty();
 
   SET_ID = $("#setId").val();
 
   await getNewVerses();
-  
   makeCards();
 
   $gameBoardContainer.removeClass("d-none");
 }
+
+/** Game controller
+ *  - Called when the user clicks the button to replay the game 
+ *    on the modal
+ */
+async function startGameFromModal(evt) {
+  $gameFinishedModal.modal("hide");
+  $gameBoard.empty();
+  await getNewVerses();
+  makeCards();
+}
+
+$gameStartForm.on("submit", startGameWithForm);
+$playAgainBtn.on("click", startGameFromModal);
+
+/** Main functionality of the game
+ *  - if the two id's match, add a checked class to the label
+ *    then disable the checking
+ * 
+ *  Check to see if the game has finished at the end
+ */
+
+function checkCards(evt) {
+  let $checkedCards = $('input:checked');
+
+  if ($checkedCards.length > 1) {
+    let $card1 = $($checkedCards[0]);
+    let $card2 = $($checkedCards[1]);
+
+    if ($card1.data("id") === $card2.data("id")) {
+      let card1Id = $card1.attr('id').split("-")[1];
+      let card2Id = $card2.attr('id').split("-")[1];
+
+      $(`#card-label-${card1Id}`).addClass("checked");
+      $(`#card-label-${card2Id}`).addClass("checked");
+
+      $card1.attr("disabled", true);
+      $card2.attr("disabled", true);
+    }
+
+    $('input:checked').prop("checked", false);
+    $(evt.target).prop("checked", false);
+  }
+
+  if ($(".matchCard").length === $(".checked").length) {
+    $gameFinishedModal.modal('show');
+  }
+}
+
+
+$gameBoard.on("change", ".matchCard", checkCards);
 
 /** Function to make the AJAX request when more cards are needed */
 
@@ -35,37 +94,28 @@ async function getNewVerses() {
 function makeCards() {
   let cardsToMake = [];
 
-  for(let i = 0; i < 6; i++) { 
+  for (let i = 0; i < 6; i++) {
     let verseObj = VERSES.pop();
-    
-    if(verseObj === undefined) break;
 
-    let {reference, verse} = verseObj;
-    cardsToMake.push({id: i, text: verse});
-    cardsToMake.push({id: i, text: reference});
+    if (verseObj === undefined) break;
+
+    let { reference, verse } = verseObj;
+    cardsToMake.push({ id: i, text: verse });
+    cardsToMake.push({ id: i, text: reference });
   };
 
-  let $row = $("<div>").addClass("row");
+  cardsToMake = _.shuffle(cardsToMake);
 
-  for(let j = 0; j < cardsToMake.length; j+=2) {
-    let $col = $("<div>")
-      .addClass(["col-lg-6", "my-2", "justify-contents-between", "mx-0"]);
-    for(let k = j; k < j + 2; k++) {
-      let cardData = cardsToMake[k];
-      $col.append($(`
-        <input type="checkbox" id="card-${k}" class="matchCard" data-id="${cardData.id}" />
-        <label for="card-${k}" class="m-2">
+  for (let j = 0; j < cardsToMake.length; j++) {
+    let cardData = cardsToMake[j];
+    $gameBoard.append($(`
+        <input type="checkbox" class="matchCard" id="card-${j}" data-id="${cardData.id}" />
+        <label for="card-${j}" id="card-label-${j}" class="m-3">
           <div class="label-text">
             ${cardData.text}
           </div>
         </label>`));
-    }
-    $row.append($col);
   }
-  $gameBoard.append($row);
 }
 
 
-
-
-$gameStartForm.on("submit", startGame);
