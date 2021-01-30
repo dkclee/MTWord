@@ -26,6 +26,8 @@ async function startGameWithForm(evt) {
   await getNewVerses();
   makeCards();
 
+  $("#progressBar").css("width", `0%`);
+
   $gameBoardContainer.removeClass("d-none");
 }
 
@@ -37,6 +39,7 @@ async function startGameFromModal(evt) {
   $gameFinishedModal.modal("hide");
   $gameBoard.empty();
   if(verses.length === 0) await getNewVerses();
+  $("#progressBar").css("width", `0%`);
   makeCards();
 }
 
@@ -76,6 +79,9 @@ function checkCards(evt) {
 
     $('input:checked').prop("checked", false);
     $(evt.target).prop("checked", false);
+
+    let progressPercent = Math.floor($(".checked").length / 2 / NUM_CARDS * 100);
+    $("#progressBar").css("width", `${progressPercent}%`);
   }
 
   if ($(".matchCard").length === $(".checked").length) {
