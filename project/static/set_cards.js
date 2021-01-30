@@ -2,9 +2,10 @@
 
 const BASE_URL = "/api/sets";
 const SET_ID = $("#setId").val();;
-const NUM_CARDS = 6;
+const MAX_CARDS = 6;
 const TOTAL_SECONDS = 30;
 let verses;
+let numCards;
 let timerInterval;
 
 const $gameStartForm = $("#setCardsForm");
@@ -89,7 +90,7 @@ function checkCards(evt) {
     $(evt.target).prop("checked", false);
 
     let progressPercent = Math.floor(
-      $(".checked").length / $('input[type=checkbox]').length * 100
+      $(".checked").length / numCards * 100
     );
     $("#progressBar").css("width", `${progressPercent}%`);
   }
@@ -115,7 +116,7 @@ async function getNewVerses() {
 function makeCards() {
   let cardsToMake = [];
 
-  for (let i = 0; i < NUM_CARDS; i++) {
+  for (let i = 0; i < MAX_CARDS; i++) {
     let verseObj = verses.pop();
 
     if (verseObj === undefined) break;
@@ -124,6 +125,8 @@ function makeCards() {
     cardsToMake.push({ id: i, text: verse });
     cardsToMake.push({ id: i, text: reference });
   };
+
+  numCards = cardsToMake.length;
 
   cardsToMake = _.shuffle(cardsToMake);
 
