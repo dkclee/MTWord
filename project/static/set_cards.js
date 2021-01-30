@@ -88,7 +88,9 @@ function checkCards(evt) {
     $('input:checked').prop("checked", false);
     $(evt.target).prop("checked", false);
 
-    let progressPercent = Math.floor($(".checked").length / 2 / NUM_CARDS * 100);
+    let progressPercent = Math.floor(
+      $(".checked").length / $('input[type=checkbox]') * 100
+    );
     $("#progressBar").css("width", `${progressPercent}%`);
   }
 
