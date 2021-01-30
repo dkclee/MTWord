@@ -15,8 +15,8 @@
         <p>Description: {{set.description}}</p>
         <input type="hidden" value="{{set.id}}" id="setId">
         <div>
-          <!-- When the game starts, you will have 30 seconds to correctly
-                    match all the cards on the screen. Good luck! -->
+          When the game starts, you will have 30 seconds to correctly
+          match all the cards on the screen. Good luck!
         </div>
         <hr class="my-4">
         <button class="btn btn-info" type="submit">Let's play!</button>
@@ -28,7 +28,6 @@
 <div class="container-fluid text-center d-none " id="gameBoardContainer">
   <div class="row" id="gameBoardRow">
     <div class="col-sm-2 py-4 bg-light">
-      <!-- Some info about stuff -->
       <div class="text-left">
         <a href="{{url_for('sets.show_set', set_id=set.id)}}">
           <<< Back to the set </a>
