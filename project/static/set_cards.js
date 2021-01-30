@@ -88,6 +88,7 @@ $gameBoard.on("change", ".matchCard", checkCards);
 async function getNewVerses() {
   let resp = await axios.get(`${BASE_URL}/${SET_ID}`);
   VERSES = resp.data.cards;
+  VERSES = _.shuffle(VERSES);
 }
 
 /** Make up to 12 cards on the DOM with up to 6 verses */
