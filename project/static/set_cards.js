@@ -89,15 +89,15 @@ function checkCards(evt) {
     $(evt.target).prop("checked", false);
 
     let progressPercent = Math.floor(
-      $(".checked").length / $('input[type=checkbox]') * 100
+      $(".checked").length / $('input[type=checkbox]').length * 100
     );
     $("#progressBar").css("width", `${progressPercent}%`);
   }
 
   if ($(".matchCard").length === $(".checked").length) {
     clearInterval(timerInterval);
-    $gameFinishedModal.modal('show');
     $("#gameFinishedModalLabel").text("Congrats, You did it!");
+    $gameFinishedModal.modal('show');
   }
 }
 
