@@ -3,7 +3,9 @@
 const BASE_URL = "/api/sets";
 const SET_ID = $("#setId").val();;
 const NUM_CARDS = 6;
+const TOTAL_SECONDS = 30;
 let verses;
+let timerInterval;
 
 const $gameStartForm = $("#setCardsForm");
 const $cardsFormContainer = $("#cardsFormContainer");
@@ -28,6 +30,8 @@ async function startGameWithForm(evt) {
 
   $("#progressBar").css("width", `0%`);
 
+  timerInterval = resetTimer(TOTAL_SECONDS);
+
   $gameBoardContainer.removeClass("d-none");
 }
 
@@ -38,8 +42,12 @@ async function startGameWithForm(evt) {
 async function startGameFromModal(evt) {
   $gameFinishedModal.modal("hide");
   $gameBoard.empty();
-  if(verses.length === 0) await getNewVerses();
+
+  if (verses.length === 0) await getNewVerses();
+
   $("#progressBar").css("width", `0%`);
+  timerInterval = resetTimer(TOTAL_SECONDS);
+
   makeCards();
 }
 
@@ -85,7 +93,9 @@ function checkCards(evt) {
   }
 
   if ($(".matchCard").length === $(".checked").length) {
+    clearInterval(timerInterval);
     $gameFinishedModal.modal('show');
+    $("#gameFinishedModalLabel").text("Congrats, You did it!");
   }
 }
 
@@ -126,3 +136,26 @@ function makeCards() {
         </label>`));
   }
 }
+
+
+function resetTimer(seconds) {
+  $("#timeLeft").text(seconds);
+  let interval = setInterval(function () {
+    seconds--;
+    $("#timeLeft").text(seconds);
+    if (seconds === 0) {
+
+      clearInterval(interval);
+
+      $gameFinishedModal.modal('show');
+      $("#gameFinishedModalLabel")
+        .text("Uh oh! It seems like you ran out of time 😢");
+      
+      $(".matchCard").attr("disabled", true);
+    }
+  }, 1000);
+
+  return interval;
+}
+ 
+

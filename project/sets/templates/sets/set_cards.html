@@ -7,82 +7,83 @@
 
 {% block content %}
 <div class="container justify-content-center my-4 text-center" id="cardsFormContainer">
-    <div class="row justify-content-center">
-        <div class="col-9 text-center">
-            <form  autocomplete="off" id="setCardsForm">
-                <h1 class="display-4 my-5">Match the cards!</h1>
-                <h3>Set name: {{set.name}}</h3>
-                <p>Description: {{set.description}}</p>
-                <input type="hidden" value="{{set.id}}" id="setId">
-                <div>
-                    <!-- When the game starts, you will have 30 seconds to correctly
+  <div class="row justify-content-center">
+    <div class="col-9 text-center">
+      <form autocomplete="off" id="setCardsForm">
+        <h1 class="display-4 my-5">Match the cards!</h1>
+        <h3>Set name: {{set.name}}</h3>
+        <p>Description: {{set.description}}</p>
+        <input type="hidden" value="{{set.id}}" id="setId">
+        <div>
+          <!-- When the game starts, you will have 30 seconds to correctly
                     match all the cards on the screen. Good luck! -->
-                </div>
-                <hr class="my-4">
-                <button class="btn btn-info" type="submit">Let's play!</button>
-            </form>
         </div>
+        <hr class="my-4">
+        <button class="btn btn-info" type="submit">Let's play!</button>
+      </form>
     </div>
+  </div>
 </div>
 
 <div class="container-fluid text-center d-none " id="gameBoardContainer">
-    <div class="row" id="gameBoardRow">
-        <div class="col-sm-2 py-4 bg-light">
-            <!-- Some info about stuff -->
-            <div class="text-left">
-              <a 
-                href="{{url_for('sets.show_set', set_id=set.id)}}" >
-                <<< Back to the set
-              </a>
+  <div class="row" id="gameBoardRow">
+    <div class="col-sm-2 py-4 bg-light">
+      <!-- Some info about stuff -->
+      <div class="text-left">
+        <a href="{{url_for('sets.show_set', set_id=set.id)}}">
+          <<< Back to the set </a>
+      </div>
+      <div class="row h-100">
+        <div class="col my-auto">
+          <h4 class="my-5">Time left:
+            <div id="timeLeft">
+              30
             </div>
-            <div class="row h-100">
-              <div class="col my-auto">
-                <h4 class="my-5">Time left:
-                  <div id="timeLeft">
-                    0
-                  </div>
-                </h4>
-              </div>
-              <div class="col my-auto">
-                <h3 class="my-5">Progress:</h3>
-                <div class="progress">
-                  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            </div>
+          </h4>
         </div>
-        <div class="col-sm-10 py-4 bg-info">
-            <h2 class="m-4 display-4">Match the cards!</h2>
-            <div class="d-flex flex-wrap justify-content-center" id="gameBoard">
-            </div>
+        <div class="col my-auto">
+          <h3 class="my-5">Progress:</h3>
+          <div class="progress">
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" id="progressBar"
+              role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="col-sm-10 py-4 bg-info">
+      <h2 class="m-4 display-4">Match the cards!</h2>
+      <div class="d-flex flex-wrap justify-content-center" id="gameBoard">
+      </div>
+    </div>
+  </div>
 </div>
 
 
 
 
 
-<div class="modal fade" id="gameFinishedModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="gameFinishedModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="gameFinishedModalLabel">Congrats, You did it!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            You can choose to play the game again or return back to the set!
-        </div>
-        <div class="modal-footer">
-            <button type="button" id="playAgainBtn" class="btn btn-primary">Play again!</button>
-          <a href="{{url_for('sets.show_set', set_id=set.id)}}" class="btn btn-outline-success">Return to the set</a>
-          <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Close</button>
-        </div>
+<div class="modal fade" id="gameFinishedModal" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="gameFinishedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="gameFinishedModalLabel">Congrats, You did it!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You can choose to play the game again or return back to the set!
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="playAgainBtn" class="btn btn-primary">Play again!</button>
+        <a href="{{url_for('sets.show_set', set_id=set.id)}}" class="btn btn-outline-success">Return to the set</a>
+        <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
+
 
 {% endblock %}
 
