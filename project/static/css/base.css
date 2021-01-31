@@ -20,3 +20,7 @@ body {
 nav {
     z-index: 1;
 }
+
+.alert {
+    z-index: 1;
+}
