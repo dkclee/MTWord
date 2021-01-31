@@ -5,7 +5,6 @@ const SET_ID = $("#setId").val();;
 const MAX_CARDS = 6;
 const TOTAL_SECONDS = 30;
 let verses;
-let numCards;
 let timerInterval;
 
 const $gameStartForm = $("#setCardsForm");
@@ -66,8 +65,8 @@ function checkCards(evt) {
   let $checkedCards = $('input:checked');
 
   if ($checkedCards.length > 1) {
-    let $card1 = $($checkedCards[0]);
-    let $card2 = $($checkedCards[1]);
+    let card1 = new GameCard($($checkedCards[0]));
+    let card2 = new GameCard($($checkedCards[1]));
 
     // If the cards have the same id (verse and ref match)
     // - grab the card Id's
@@ -75,23 +74,18 @@ function checkCards(evt) {
     // - disable the checkboxes
     // - uncheck the checkboxes 
     // - update progress bar
-    if ($card1.data("id") === $card2.data("id")) {
-      let card1Id = $card1.attr('id').split("-")[1];
-      let card2Id = $card2.attr('id').split("-")[1];
+    if (card1.dataId === card2.dataId) {
+      card1.changeColor();
+      card2.changeColor();
 
-      $(`#card-label-${card1Id}`).addClass("checked");
-      $(`#card-label-${card2Id}`).addClass("checked");
-
-      $card1.attr("disabled", true);
-      $card2.attr("disabled", true);
+      card1.disableCheck();
+      card2.disableCheck();
     }
 
-    $('input:checked').prop("checked", false);
-    $(evt.target).prop("checked", false);
+    GameCard.uncheckCard($('input:checked'));
+    GameCard.uncheckCard($(evt.target));
 
-    let progressPercent = Math.floor(
-      $(".checked").length / numCards * 100
-    );
+    let progressPercent = Math.floor(GameCard.getPercentageFlipped());
     $("#progressBar").css("width", `${progressPercent}%`);
   }
 
@@ -126,7 +120,7 @@ function makeCards() {
     cardsToMake.push({ id: i, text: reference });
   };
 
-  numCards = cardsToMake.length;
+  GameCard.numCards = cardsToMake.length;
 
   cardsToMake = _.shuffle(cardsToMake);
 
@@ -163,4 +157,37 @@ function resetTimer(seconds) {
   return interval;
 }
  
+/** GameCard class to encapsulate all the data and functionality
+ *  with changing and flipping cards
+ */
+class GameCard {
+  static numCards;
 
+  constructor($card) {
+    this.dataId = $card.data("id");
+    this.id = $card.attr('id').split("-")[1];
+    this.$card = $card;
+  }
+
+  /** Add a CSS class to change card color */
+  changeColor() {
+    $(`#card-label-${this.id}`).addClass("checked");
+  }
+
+  /** Disable check so that the card cannot be selected again */
+  disableCheck() {
+    this.$card.attr("disabled", true);
+  }
+
+  /** Get ratio of flipped (with class checked) over total cards */
+  static getPercentageFlipped() {
+    return $(".checked").length / GameCard.numCards * 100;
+  }
+
+  /** Uncheck the card 
+   *  - Accepts jQuery object
+   */
+  static uncheckCard($card) {
+    $card.prop("checked", false);
+  }
+}
