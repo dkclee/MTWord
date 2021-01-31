@@ -4,7 +4,7 @@ const BASE_URL = "/api/sets";
 const SET_ID = $("#setId").val();;
 const MAX_CARDS = 6;
 const TOTAL_SECONDS = 30;
-let verses;
+let verses = [];
 let timerInterval;
 
 const $gameStartForm = $("#setCardsForm");
@@ -15,7 +15,6 @@ const $gameBoard = $("#gameBoard");
 const $gameFinishedModal = $("#gameFinishedModal");
 const $playAgainBtn = $("#playAgainBtn");
 
-
 /** Game controller
  *  - Called when the form is submitted to start the game
  *    only called once in the beginning
@@ -23,14 +22,8 @@ const $playAgainBtn = $("#playAgainBtn");
 async function startGameWithForm(evt) {
   evt.preventDefault();
   $cardsFormContainer.hide();
-  $gameBoard.empty();
-
-  await getNewVerses();
-  makeCards();
-
-  $("#progressBar").css("width", `0%`);
-
-  timerInterval = resetTimer(TOTAL_SECONDS);
+  
+  await prepareGame();
 
   $gameBoardContainer.removeClass("d-none");
 }
@@ -41,6 +34,18 @@ async function startGameWithForm(evt) {
  */
 async function startGameFromModal(evt) {
   $gameFinishedModal.modal("hide");
+  await prepareGame();
+}
+
+$gameStartForm.on("submit", startGameWithForm);
+$playAgainBtn.on("click", startGameFromModal);
+
+
+/** Function that prepares the board and the game
+ *  - Called by both functions with different ways 
+ *    to start the game
+ */
+async function prepareGame() {
   $gameBoard.empty();
 
   if (verses.length === 0) await getNewVerses();
@@ -50,9 +55,6 @@ async function startGameFromModal(evt) {
 
   makeCards();
 }
-
-$gameStartForm.on("submit", startGameWithForm);
-$playAgainBtn.on("click", startGameFromModal);
 
 /** Main functionality of the game
  *  - if the two id's match, add a checked class to the label
@@ -69,11 +71,6 @@ function checkCards(evt) {
     let card2 = new GameCard($($checkedCards[1]));
 
     // If the cards have the same id (verse and ref match)
-    // - grab the card Id's
-    // - change the labels to checked (turns green)
-    // - disable the checkboxes
-    // - uncheck the checkboxes 
-    // - update progress bar
     if (card1.dataId === card2.dataId) {
       card1.changeColor();
       card2.changeColor();
@@ -89,7 +86,7 @@ function checkCards(evt) {
     $("#progressBar").css("width", `${progressPercent}%`);
   }
 
-  if ($(".matchCard").length === $(".checked").length) {
+  if (GameCard.allCardsFlipped() === true) {
     clearInterval(timerInterval);
     $("#gameFinishedModalLabel").text("Congrats, You did it!");
     $gameFinishedModal.modal('show');
@@ -189,5 +186,10 @@ class GameCard {
    */
   static uncheckCard($card) {
     $card.prop("checked", false);
+  }
+
+  /** Returns boolean showing whether all cards have been flipped */
+  static allCardsFlipped() {
+    return ($(".matchCard").length === $(".checked").length);
   }
 }
