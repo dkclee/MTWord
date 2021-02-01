@@ -83,7 +83,7 @@ Here below are the results of making different amount of queries (500, 750, 1000
 | 300 | 8.09 |
 | 600 | 22.03 |
 | 900 | 36.94 |
-| 1200 | 45.6 |s
+| 1200 | 45.6 |
 
 We can observe a logarithmic behavior that the improvements have when compared with the number of sets that were searched through. When searching through a smaller amount of sets in our database, query time is worse using the Elasticsearch; however, there is a significant decrease in the query time for larger searches. This accords with the fact that querying through Elasticsearch scales better compared to the standard database search methods which yields our decreases in the amount of time needed per query. 
 
@@ -99,10 +99,10 @@ flask run
 Some features may not work locally because of API keys that are not available.
 
 ## Future directions
-- Tests: Definitely want to make sure that all of my code is tested. 
+- Tests: Want to make sure that all of my code is tested. 
     Currently there is a problem running the tests because of an 
     application context problem. 
-- Helpful memorization features: Card matching, text matching, quiz features for the memorization aspect
+- Helpful memorization features: Text matching, quizzes
 - Incorporating OAuth using [Flask-Dance](https://flask-dance.readthedocs.io/en/latest/)
 - Ordering the sets by different factors such as name, created date, number of cards, etc...
 - Reset password feature using JWTs [Flask-JWT-extended](https://flask-jwt-extended.readthedocs.io/en/stable/)
