@@ -73,8 +73,11 @@ our sets, the [Python Profiler](https://docs.python.org/2/library/profile.html)
 package was used in addition to [Faker](https://faker.readthedocs.io/en/stable/index.html)
 package in order to generate large amounts of set data. 
 
-Here below are the results of making different amount of queries across different number of sets in the database. The results can be averaged out in order to give a representation of
-the improvements made through implementing Elasticsearch. 
+Here below are the results of making different amount of queries (500, 750, 1000, 2000, 3000) across different number of sets (150, 300, 600, 900, 1200) in the database. The results can be averaged out in order to give a representation of the improvements made through implementing Elasticsearch. View the results [here](https://docs.google.com/spreadsheets/d/1DNRCtg_0X7-KWJgQIwOZFqXtwUseJxeDsvzM4qMK-v8/edit?usp=sharing).
+
+![Profile results](demo/search_comparison.png)
+
+We can observe a logarithmic behavior that the improvements have when compared with the number of sets that were searched through. 
 
 ## How to use?
 In order to host the project locally, follow these steps

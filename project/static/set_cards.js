@@ -57,7 +57,7 @@ async function prepareGame() {
 }
 
 /** Main functionality of the game
- *  - if the two id's match, add a checked class to the label
+ *  - if the two dataId's match, add a checked class to the label
  *    then disable the checking
  * 
  *  Check to see if the game has finished at the end
