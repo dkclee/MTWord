@@ -113,8 +113,8 @@ function makeCards() {
     if (verseObj === undefined) break;
 
     let { reference, verse } = verseObj;
-    cardsToMake.push({ id: i, text: verse });
-    cardsToMake.push({ id: i, text: reference });
+    cardsToMake.push({ dataId: i, text: verse });
+    cardsToMake.push({ dataId: i, text: reference });
   };
 
   GameCard.numCards = cardsToMake.length;
@@ -122,14 +122,7 @@ function makeCards() {
   cardsToMake = _.shuffle(cardsToMake);
 
   for (let j = 0; j < cardsToMake.length; j++) {
-    let cardData = cardsToMake[j];
-    $gameBoard.append($(`
-        <input type="checkbox" class="matchCard" id="card-${j}" data-id="${cardData.id}" />
-        <label for="card-${j}" id="card-label-${j}" class="m-3">
-          <div class="label-text">
-            ${cardData.text}
-          </div>
-        </label>`));
+    $gameBoard.append(GameCard.makeGameCard(cardsToMake[j], j));
   }
 }
 
@@ -191,5 +184,16 @@ class GameCard {
   /** Returns boolean showing whether all cards have been flipped */
   static allCardsFlipped() {
     return ($(".matchCard").length === $(".checked").length);
+  }
+
+  /** Return a jQuery object of a gamecard */
+  static makeGameCard(cardData, id) {
+    return $(`
+      <input type="checkbox" class="matchCard" id="card-${id}" data-id="${cardData.dataId}" />
+      <label for="card-${id}" id="card-label-${id}" class="m-3">
+        <div class="label-text">
+          ${cardData.text}
+        </div>
+      </label>`);
   }
 }
