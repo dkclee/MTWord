@@ -77,7 +77,15 @@ Here below are the results of making different amount of queries (500, 750, 1000
 
 ![Profile results](demo/search_comparison.png)
 
-We can observe a logarithmic behavior that the improvements have when compared with the number of sets that were searched through. 
+| # of Sets | Percentage of time saved (avg) |
+|-|-|
+| 150 | -30.6 |
+| 300 | 8.09 |
+| 600 | 22.03 |
+| 900 | 36.94 |
+| 1200 | 45.6 |s
+
+We can observe a logarithmic behavior that the improvements have when compared with the number of sets that were searched through. When searching through a smaller amount of sets in our database, query time is worse using the Elasticsearch; however, there is a significant decrease in the query time for larger searches. This accords with the fact that querying through Elasticsearch scales better compared to the standard database search methods which yields our decreases in the amount of time needed per query. 
 
 ## How to use?
 In order to host the project locally, follow these steps
