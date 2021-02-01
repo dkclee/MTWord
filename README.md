@@ -78,7 +78,7 @@ Here below are the results of making different amount of queries (500, 750, 1000
 ![Profile results](demo/search_comparison.png)
 
 | # of Sets | Percentage of time saved (avg) |
-|-|-|
+|:-:|:-:|
 | 150 | -30.6 |
 | 300 | 8.09 |
 | 600 | 22.03 |
