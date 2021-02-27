@@ -12,7 +12,7 @@ hashed = bcrypt.generate_password_hash("testing").decode('utf8')
 
 user = User(username="test",
             password=hashed,
-            email="davidlee980804@gmail.com",
+            email="david@dkclee.com",
             first_name="David",
             last_name="Lee",
             is_admin=True)
@@ -33,7 +33,8 @@ verse2 = Verse(
         Christ died for us."
 )
 
-db.session.add(verse1, verse2)
+db.session.add(verse1)
+db.session.add(verse2)
 db.session.commit()
 
 
