@@ -8,18 +8,18 @@
 import os
 from unittest import TestCase
 
-from ..models import db, User, Set, Verse
+from models import db, User, Set, Verse
 
 # BEFORE we import our app, set an environmental variable
 # to use a different database for tests (we need to do this
 # before we import our app, since that will have already
 # connected to the database
 
-os.environ['DATABASE_URL'] = "postgresql:///bible_memorization_test"
+os.environ['DATABASE_URL'] = "postgresql:///mtword_test"
 
 # Now we can import app
 
-from .. import app
+from project import app
 
 app.config['TESTING'] = True
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
