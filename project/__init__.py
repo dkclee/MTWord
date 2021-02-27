@@ -13,6 +13,7 @@ from flask_bootstrap import Bootstrap
 
 from elasticsearch import Elasticsearch
 
+from project.search import connect_app_to_search
 from project.models import db, connect_db, User, Set, Verse
 
 from .api.views import api
@@ -24,7 +25,7 @@ from .homepage.views import homepage
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    os.environ.get('DATABASE_URL', 'postgresql:///bible_memorization'))
+    os.environ.get('DATABASE_URL', 'postgresql:///mtword'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = False
 
@@ -61,6 +62,8 @@ else:
     app.config['ELASTICSEARCH_URL'] = "http://localhost:9200"
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None
+
+connect_app_to_search(app)
 
 debug = DebugToolbarExtension(app)
 
@@ -111,7 +114,6 @@ app.register_blueprint(users)
 ####################################################################
 # Setting up Login
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -128,6 +130,4 @@ def show_404_page(err):
 @app.errorhandler(401)
 def show_401_page(err):
     return render_template('errors/401.html'), 401
-
-
 
