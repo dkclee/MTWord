@@ -1,4 +1,11 @@
-from flask import current_app
+current_app = None
+
+
+def connect_app_to_search(app):
+
+    global current_app
+    current_app = app
+    return
 
 
 def add_to_index(index, model):
