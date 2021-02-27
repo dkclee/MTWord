@@ -1,4 +1,5 @@
-import os, re
+import os
+import re
 
 from flask import Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
