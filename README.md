@@ -39,6 +39,7 @@ Include logo/demo screenshot etc. -->
     * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/)
 - [Elasticsearch](https://www.elastic.co/guide/index.html)
     * Elasticsearch was used to index the sets by their name and description in order to easily search for different sets
+- [PostgreSQL](https://www.postgresql.org/)
 
 <b>Frontend:</b>
 - [jQuery](https://jquery.com/)
@@ -94,9 +95,12 @@ git clone https://github.com/d-lee84/MTWord.git
 cd MTWord
 python3 -m venv venv
 pip3 install -r requirements.txt
+createdb mtword
+python3 seed.py
 flask run
 ```
 Some features may not work locally because of API keys that are not available.
+Make sure to have PostgreSQL and Elasticsearch installed on your device. 
 
 ## Future directions
 - Tests: Want to make sure that all of my code is tested. 
